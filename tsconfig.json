@@ -13,10 +13,10 @@
     "module": "NodeNext",
     "lib": ["ESNext"],
     "rootDirs": ["src"],
-    "outDir": "bin"
+    "outDir": "dist"
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "**/__tests__"],
   "ts-node": {
     "esm": true
   }
