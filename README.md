@@ -16,7 +16,7 @@ yarn tsx src/index.ts
 
 ## Description
 
-![System Architecture](./design.jpg)
+![System Architecture](./design.png)
 
 The image provides a overview of the system architecture. Let's break it down:
 

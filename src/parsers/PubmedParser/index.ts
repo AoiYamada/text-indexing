@@ -17,7 +17,6 @@ class PubmedParser {
 
   public parse(xml: RawXML): Pubmed[] {
     const data: PubmedRawData = this._parser.parse(xml);
-    // const count = data.PubmedArticleSet.PubmedArticle.length;
     const count = 5;
     let i = 0;
     const articles: Pubmed[] = [];
