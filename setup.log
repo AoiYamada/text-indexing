@@ -4,3 +4,4 @@ echo "nodeLinker: node-modules" >> .yarnrc.yml
 
 yarn init
 yarn add -D typescript tsx jest ts-jest @types/node @types/jest
+yarn ts-jest config:init
