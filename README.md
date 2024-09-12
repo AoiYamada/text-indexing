@@ -67,46 +67,27 @@ Potential areas for consideration:
 
 ## Folder structure
 
+```txt
 src/
-
 ├── parsers/
-
 │   ├── PubmedParser.ts
-
 │   └── TwitterParser.ts
-
 ├── services/
-
 │   ├── CreateDocService.ts
-
 │   ├── IndexDocService.ts
-
 │   ├── GetDocService.ts
-
 │   └── SearchService.ts
-
 ├── models/
-
 │   ├── Doc.ts
-
 │   ├── Meta.ts
-
 │   └── StructuredData.ts
-
 ├── workers/
-
 │   └── DataProcessor.ts
-
 ├── controllers/
-
 │   └── SearchController.ts
-
 ├── utils/
-
 │   └── types.ts
-
 ├── config/
-
 │   └── elasticsearch.ts
-
 └── index.ts
+```

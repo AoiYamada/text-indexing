@@ -5,7 +5,7 @@ const xml = readFileSync("./data-source/pubmed24n1219.xml", {
   encoding: "utf-8",
 });
 
-const articles = new PubmedParser().parseArticles(xml);
+const articles = new PubmedParser().parse(xml);
 
 // Demonstrate the output
 console.log(JSON.stringify(articles, null, 2));
