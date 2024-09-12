@@ -1,3 +1,16 @@
 {
-  "cSpell.words": ["issn", "medline", "pmid", "pubmed"]
+  "cSpell.words": [
+    "CERTIFICATEAUTHORITIES",
+    "esdata",
+    "healthcheck",
+    "issn",
+    "kibanadata",
+    "medline",
+    "memlock",
+    "pmid",
+    "pubmed",
+    "SERVERNAME",
+    "ulimits",
+    "xpack"
+  ]
 }
