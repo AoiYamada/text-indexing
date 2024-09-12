@@ -1,16 +1,5 @@
 import "dotenv/config";
-import { Client } from "@elastic/elasticsearch";
-
-const client = new Client({
-  node: "https://localhost:9200",
-  auth: {
-    username: "elastic",
-    password: process.env.ELASTIC_PASSWORD!,
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
+import elasticsearch from "./databases/elasticsearch";
 
 interface Document {
   character: string;
@@ -19,7 +8,7 @@ interface Document {
 
 async function run() {
   // Let's start by indexing some data
-  await client.index({
+  await elasticsearch.index({
     index: "game-of-thrones",
     document: {
       character: "Ned Stark",
@@ -27,7 +16,7 @@ async function run() {
     },
   });
 
-  await client.index({
+  await elasticsearch.index({
     index: "game-of-thrones",
     document: {
       character: "Daenerys Targaryen",
@@ -35,7 +24,7 @@ async function run() {
     },
   });
 
-  await client.index({
+  await elasticsearch.index({
     index: "game-of-thrones",
     document: {
       character: "Tyrion Lannister",
@@ -45,10 +34,10 @@ async function run() {
 
   // here we are forcing an index refresh, otherwise we will not
   // get any result in the consequent search
-  await client.indices.refresh({ index: "game-of-thrones" });
+  await elasticsearch.indices.refresh({ index: "game-of-thrones" });
 
   // Let's search!
-  const result = await client.search<Document>({
+  const result = await elasticsearch.search<Document>({
     index: "game-of-thrones",
     query: {
       match: { quote: "winter" },

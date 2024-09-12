@@ -1667,6 +1667,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"env-var@npm:^7.5.0":
+  version: 7.5.0
+  resolution: "env-var@npm:7.5.0"
+  checksum: 10c0/7eb93446417b2a1caaec213ffa1a28686a23d18f9364c9c007c113bedabf4632f8890a95b23022f3ac59351807f8ed27fce3ea68f85462406d7d19b2f6c75e88
+  languageName: node
+  linkType: hard
+
 "err-code@npm:^2.0.2":
   version: 2.0.3
   resolution: "err-code@npm:2.0.3"
@@ -3711,11 +3718,14 @@ __metadata:
     "@types/node": "npm:22.5.4"
     commander: "npm:^12.1.0"
     dotenv: "npm:^16.4.5"
+    env-var: "npm:^7.5.0"
     fast-xml-parser: "npm:4.5.0"
     jest: "npm:29.7.0"
     ts-jest: "npm:29.2.5"
     tsx: "npm:4.19.1"
     typescript: "npm:5.6.2"
+  bin:
+    cli: ./dist/cli.js
   languageName: unknown
   linkType: soft
 

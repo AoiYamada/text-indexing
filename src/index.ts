@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import { readFileSync } from "fs";
 import PubmedParser from "./parsers/PubmedParser";
 
