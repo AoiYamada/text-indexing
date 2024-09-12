@@ -1009,7 +1009,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:^29.5.12":
+"@types/jest@npm:29.5.12":
   version: 29.5.12
   resolution: "@types/jest@npm:29.5.12"
   dependencies:
@@ -1019,7 +1019,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^22.5.4":
+"@types/node@npm:*, @types/node@npm:22.5.4":
   version: 22.5.4
   resolution: "@types/node@npm:22.5.4"
   dependencies:
@@ -1799,6 +1799,17 @@ __metadata:
   version: 2.1.0
   resolution: "fast-json-stable-stringify@npm:2.1.0"
   checksum: 10c0/7f081eb0b8a64e0057b3bb03f974b3ef00135fbf36c1c710895cd9300f13c94ba809bb3a81cf4e1b03f6e5285610a61abbd7602d0652de423144dfee5a389c9b
+  languageName: node
+  linkType: hard
+
+"fast-xml-parser@npm:4.5.0":
+  version: 4.5.0
+  resolution: "fast-xml-parser@npm:4.5.0"
+  dependencies:
+    strnum: "npm:^1.0.5"
+  bin:
+    fxparser: src/cli/cli.js
+  checksum: 10c0/71d206c9e137f5c26af88d27dde0108068a5d074401901d643c500c36e95dfd828333a98bda020846c41f5b9b364e2b0e9be5b19b0bdcab5cf31559c07b80a95
   languageName: node
   linkType: hard
 
@@ -2684,7 +2695,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^29.7.0":
+"jest@npm:29.7.0":
   version: 29.7.0
   resolution: "jest@npm:29.7.0"
   dependencies:
@@ -3565,6 +3576,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"strnum@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "strnum@npm:1.0.5"
+  checksum: 10c0/64fb8cc2effbd585a6821faa73ad97d4b553c8927e49086a162ffd2cc818787643390b89d567460a8e74300148d11ac052e21c921ef2049f2987f4b1b89a7ff1
+  languageName: node
+  linkType: hard
+
 "supports-color@npm:^5.3.0":
   version: 5.5.0
   resolution: "supports-color@npm:5.5.0"
@@ -3628,12 +3646,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "text-indexing@workspace:."
   dependencies:
-    "@types/jest": "npm:^29.5.12"
-    "@types/node": "npm:^22.5.4"
-    jest: "npm:^29.7.0"
-    ts-jest: "npm:^29.2.5"
-    tsx: "npm:^4.19.1"
-    typescript: "npm:^5.6.2"
+    "@types/jest": "npm:29.5.12"
+    "@types/node": "npm:22.5.4"
+    fast-xml-parser: "npm:4.5.0"
+    jest: "npm:29.7.0"
+    ts-jest: "npm:29.2.5"
+    tsx: "npm:4.19.1"
+    typescript: "npm:5.6.2"
   languageName: unknown
   linkType: soft
 
@@ -3660,7 +3679,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.2.5":
+"ts-jest@npm:29.2.5":
   version: 29.2.5
   resolution: "ts-jest@npm:29.2.5"
   dependencies:
@@ -3697,7 +3716,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:^4.19.1":
+"tsx@npm:4.19.1":
   version: 4.19.1
   resolution: "tsx@npm:4.19.1"
   dependencies:
@@ -3727,7 +3746,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.6.2":
+"typescript@npm:5.6.2":
   version: 5.6.2
   resolution: "typescript@npm:5.6.2"
   bin:
@@ -3737,7 +3756,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.6.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>":
   version: 5.6.2
   resolution: "typescript@patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>::version=5.6.2&hash=8c6c40"
   bin:
