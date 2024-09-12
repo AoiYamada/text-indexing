@@ -23,17 +23,19 @@ The image provides a overview of the system architecture. Let's break it down:
 1. Data Sources:
    - Pubmed XML
    - Twitter JSON
-   This allows for diverse input formats.
 
 2. Parsing:
    - XML Parser for Pubmed
    - JSON Parser for Twitter
+
    Separate parsers for each data source ensure proper handling of different formats.
 
 3. Structured Data:
+
    The parsed data is converted into a unified structured format, including fields for Doc, Meta, Twitter, and Pubmed.
 
 4. Worker:
+
    Processes the structured data, performing tasks such as text normalization, entity extraction, etc.
 
 5. Document Services:
@@ -44,12 +46,15 @@ The image provides a overview of the system architecture. Let's break it down:
 6. Search Services:
    - Search Services
    - Index Doc Service
+
    Handles search and index requests and interacts with the Elasticsearch component.
 
 7. Elasticsearch:
+
    The core search engine, with configuration for analyzers, tokenizers, and mapping.
 
 8. Controller:
+
    Manages incoming search requests from the client.
 
 Potential areas for consideration:
@@ -63,24 +68,45 @@ Potential areas for consideration:
 ## Folder structure
 
 src/
+
 ├── parsers/
+
 │   ├── PubmedParser.ts
+
 │   └── TwitterParser.ts
+
 ├── services/
+
 │   ├── CreateDocService.ts
+
 │   ├── IndexDocService.ts
+
 │   ├── GetDocService.ts
+
 │   └── SearchService.ts
+
 ├── models/
+
 │   ├── Doc.ts
+
 │   ├── Meta.ts
+
 │   └── StructuredData.ts
+
 ├── workers/
+
 │   └── DataProcessor.ts
+
 ├── controllers/
+
 │   └── SearchController.ts
+
 ├── utils/
+
 │   └── types.ts
+
 ├── config/
+
 │   └── elasticsearch.ts
+
 └── index.ts
