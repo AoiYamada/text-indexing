@@ -25,3 +25,5 @@ const stemDocStats = sqliteTable(
 );
 
 export default stemDocStats;
+
+export type StemDocStatsTable = typeof stemDocStats;

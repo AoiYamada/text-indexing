@@ -23,3 +23,5 @@ const docMeta = sqliteTable(
 );
 
 export default docMeta;
+
+export type DocMetaTable = typeof docMeta;

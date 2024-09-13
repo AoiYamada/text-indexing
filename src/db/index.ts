@@ -1,4 +1,4 @@
-import db from "./client";
+import db, { DbClient } from "./client";
 
 // Import all your schema definitions
 import * as schema from "./schema";
@@ -7,7 +7,7 @@ import * as schema from "./schema";
 export default db;
 
 // Export all schemas
-export { schema };
+export { DbClient, schema };
 
 // Export any other database-related utilities
 export function getTableNames() {

@@ -6,3 +6,5 @@ const stem = sqliteTable("stem", {
 });
 
 export default stem;
+
+export type StemTable = typeof stem;

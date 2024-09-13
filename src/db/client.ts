@@ -12,3 +12,5 @@ const db = drizzle(sqlite, {
 });
 
 export default db;
+
+export type DbClient = typeof db;

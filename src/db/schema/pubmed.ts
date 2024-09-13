@@ -22,3 +22,5 @@ const pubmed = sqliteTable(
 );
 
 export default pubmed;
+
+export type PubmedTable = typeof pubmed;

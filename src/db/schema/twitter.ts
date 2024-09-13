@@ -21,3 +21,5 @@ const twitter = sqliteTable(
 );
 
 export default twitter;
+
+export type TwitterTable = typeof twitter;

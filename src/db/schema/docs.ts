@@ -24,3 +24,5 @@ const docs = sqliteTable(
 );
 
 export default docs;
+
+export type DocsTable = typeof docs;
