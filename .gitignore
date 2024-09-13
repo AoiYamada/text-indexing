@@ -13,7 +13,13 @@
 .pnp.*
 
 node_modules
-data-source
+data-source/*
 dist
 
 .env
+
+db/*
+
+!**/.gitkeep
+
+src/db/sqlite/migrations/meta

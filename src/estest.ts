@@ -1,5 +1,5 @@
 import "dotenv/config";
-import elasticsearch from "./databases/elasticsearch";
+import es from "./db/elasticsearch";
 
 interface Document {
   character: string;
@@ -8,7 +8,7 @@ interface Document {
 
 async function run() {
   // Let's start by indexing some data
-  await elasticsearch.index({
+  await es.index({
     index: "game-of-thrones",
     document: {
       character: "Ned Stark",
@@ -16,7 +16,7 @@ async function run() {
     },
   });
 
-  await elasticsearch.index({
+  await es.index({
     index: "game-of-thrones",
     document: {
       character: "Daenerys Targaryen",
@@ -24,7 +24,7 @@ async function run() {
     },
   });
 
-  await elasticsearch.index({
+  await es.index({
     index: "game-of-thrones",
     document: {
       character: "Tyrion Lannister",
@@ -34,10 +34,10 @@ async function run() {
 
   // here we are forcing an index refresh, otherwise we will not
   // get any result in the consequent search
-  await elasticsearch.indices.refresh({ index: "game-of-thrones" });
+  await es.indices.refresh({ index: "game-of-thrones" });
 
   // Let's search!
-  const result = await elasticsearch.search<Document>({
+  const result = await es.search<Document>({
     index: "game-of-thrones",
     query: {
       match: { quote: "winter" },

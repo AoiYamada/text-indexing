@@ -1,7 +1,7 @@
 import { ClientOptions } from "@elastic/elasticsearch";
 import * as env from "env-var";
 
-const elasticsearchConfig: ClientOptions = {
+const esConfig: ClientOptions = {
   node: `https://${env.get("ES_NODE").required().asString()}:${env
     .get("ES_PORT")
     .required()
@@ -15,4 +15,4 @@ const elasticsearchConfig: ClientOptions = {
   },
 };
 
-export default elasticsearchConfig;
+export default esConfig;

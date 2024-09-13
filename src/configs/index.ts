@@ -1,8 +1,10 @@
-import elasticsearchConfig from "./elasticsearch-config";
+import esConfig from "./elasticsearch-config";
+import sqliteConfig from "./sqlite-config";
 
 const config = {
   databases: {
-    elasticsearch: elasticsearchConfig,
+    elasticsearch: esConfig,
+    sqlite: sqliteConfig,
   },
 };
 
