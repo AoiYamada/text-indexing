@@ -2,6 +2,7 @@ import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import docs from "./docs";
 import stem from "./stem";
 import { index } from "drizzle-orm/sqlite-core";
+import { DocTypeValues } from "../../constants/DocType";
 
 const stemDocStats = sqliteTable(
   "stem_doc_stats",
@@ -13,7 +14,9 @@ const stemDocStats = sqliteTable(
     docId: integer("doc_id")
       .references(() => docs.id)
       .notNull(),
-    docType: text("doc_type", { enum: ["pubmed", "twitter"] }).notNull(),
+    docType: text("doc_type", {
+      enum: DocTypeValues,
+    }).notNull(),
     count: integer("count").notNull(),
   },
   (table) => ({

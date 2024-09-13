@@ -1,13 +1,14 @@
 // import { sql } from "drizzle-orm";
 import { table } from "console";
 import { sqliteTable, text, integer, index } from "drizzle-orm/sqlite-core";
+import { DocTypeValues } from "../../constants/DocType";
 
 const docs = sqliteTable(
   "docs",
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
     type: text("type", {
-      enum: ["pubmed", "twitter"],
+      enum: DocTypeValues,
     }).notNull(),
 
     // Just for reference, you can add these fields if needed

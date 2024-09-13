@@ -1,6 +1,7 @@
 CREATE TABLE `doc_meta` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`doc_id` integer NOT NULL,
+	`hash` text NOT NULL,
 	`char_count` integer NOT NULL,
 	`word_count` integer NOT NULL,
 	`sentence_count` integer NOT NULL,
@@ -43,6 +44,7 @@ CREATE TABLE `twitter` (
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `doc_id_idx` ON `doc_meta` (`doc_id`);--> statement-breakpoint
+CREATE INDEX `hash_idx` ON `doc_meta` (`hash`);--> statement-breakpoint
 CREATE INDEX `char_count_idx` ON `doc_meta` (`char_count`);--> statement-breakpoint
 CREATE INDEX `word_count_idx` ON `doc_meta` (`word_count`);--> statement-breakpoint
 CREATE INDEX `sentence_count_idx` ON `doc_meta` (`sentence_count`);--> statement-breakpoint
