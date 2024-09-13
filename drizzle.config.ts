@@ -4,11 +4,11 @@ import { defineConfig } from "drizzle-kit";
 import config from "./src/configs";
 
 export default defineConfig({
-  schema: "src/db/sqlite/schema/index.ts",
-  out: "src/db/sqlite/migrations",
+  schema: "src/db/schema/index.ts",
+  out: "src/db/migrations",
   dialect: "sqlite",
   dbCredentials: {
-    url: `file:${config.databases.sqlite}`,
+    url: `file:${config.databases.db}`,
   },
   // Print all statements
   verbose: true,

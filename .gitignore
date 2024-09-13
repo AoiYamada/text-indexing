@@ -22,4 +22,4 @@ db/*
 
 !**/.gitkeep
 
-src/db/sqlite/migrations/meta
+src/db/migrations/meta

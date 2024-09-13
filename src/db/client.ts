@@ -1,10 +1,10 @@
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import Database from "better-sqlite3";
-import config from "../../configs";
+import config from "../configs";
 import * as schema from "./schema";
 
 // Initialize the SQLite database
-const sqlite = new Database(config.databases.sqlite);
+const sqlite = new Database(config.databases.db);
 
 // Create the Drizzle ORM instance
 const db = drizzle(sqlite, {

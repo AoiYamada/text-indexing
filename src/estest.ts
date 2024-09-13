@@ -1,5 +1,5 @@
 import "dotenv/config";
-import es from "./db/elasticsearch";
+import es from "./elasticsearch";
 
 interface Document {
   character: string;

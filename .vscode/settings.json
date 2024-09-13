@@ -1,6 +1,6 @@
 {
   "cSpell.words": [
-    "CERTIFICATEAUTHORITIES",
+    "certificateauthorities",
     "esdata",
     "healthcheck",
     "issn",
@@ -9,7 +9,8 @@
     "memlock",
     "pmid",
     "pubmed",
-    "SERVERNAME",
+    "servername",
+    "stopwords",
     "ulimits",
     "xpack"
   ]

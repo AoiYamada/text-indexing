@@ -4,7 +4,7 @@ import sqliteConfig from "./sqlite-config";
 const config = {
   databases: {
     elasticsearch: esConfig,
-    sqlite: sqliteConfig,
+    db: sqliteConfig,
   },
 };
 
