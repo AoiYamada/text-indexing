@@ -19,7 +19,8 @@ dist
 .env
 
 db/*
-
-!**/.gitkeep
+logs/*
 
 src/db/migrations/meta
+
+!**/.gitkeep

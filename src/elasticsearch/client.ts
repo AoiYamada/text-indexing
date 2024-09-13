@@ -5,3 +5,5 @@ import config from "../configs";
 const es = new Client(config.databases.elasticsearch);
 
 export default es;
+
+export type EsClient = typeof es;
