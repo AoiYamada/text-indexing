@@ -15,14 +15,13 @@ class PubmedParser {
     this._parser = new XMLParser();
   }
 
-  public parse(xml: RawXML): Pubmed[] {
+  public parse(xml: RawXML, count?: number): Pubmed[] {
     const data: PubmedRawData = this._parser.parse(xml);
-    const count = 5;
     let i = 0;
     const articles: Pubmed[] = [];
 
     for (const article of data.PubmedArticleSet.PubmedArticle) {
-      if (i >= count) {
+      if (count && i >= count) {
         break;
       }
 

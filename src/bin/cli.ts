@@ -3,9 +3,11 @@
 import "dotenv/config";
 import { program } from "commander";
 
+import initCmd from "./cmds/initCmd";
 import statsCmd from "./cmds/statsCmd";
 import logger from "../logger";
 
+program.addCommand(initCmd);
 program.addCommand(statsCmd);
 
 program.parse(process.argv);
