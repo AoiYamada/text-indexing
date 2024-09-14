@@ -2,6 +2,7 @@ import { EsClient } from "../../elasticsearch/client";
 import docIndex from "../../elasticsearch/indices/doc";
 import docMappings from "../../elasticsearch/indices/doc/mappings";
 import logger from "../../logger";
+import { int } from "../../types/alias";
 import PaginationQuery from "../../types/PaginationQuery";
 import omit from "../../utils/omit";
 
@@ -219,14 +220,14 @@ function esDocToData<T extends Partial<EsDoc>>(doc: T): Partial<EsDocData> {
 
 // this is the data structure for view
 type EsDoc = {
-  doc_id: number;
+  doc_id: int;
   doc_type: string;
   sentences: string[];
 };
 
 // this is the data structure in elasticsearch
 type EsDocData = {
-  doc_id: number;
+  doc_id: int;
   doc_type: string;
   sentences: {
     content: string;

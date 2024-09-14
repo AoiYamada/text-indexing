@@ -1,3 +1,5 @@
+import { int } from "../../../types/alias";
+
 // use https://json-5.com/ to convert json ts types
 export type PubmedRawData = {
   "?xml": "";
@@ -20,7 +22,7 @@ type PubmedData = {
 };
 
 type ArticleIdList = {
-  ArticleId: (number | string)[];
+  ArticleId: (int | string)[];
 };
 
 type History = {
@@ -28,15 +30,15 @@ type History = {
 };
 
 type PubMedPubDate = {
-  Year: number;
-  Month: number;
-  Day: number;
-  Hour?: number;
-  Minute?: number;
+  Year: int;
+  Month: int;
+  Day: int;
+  Hour?: int;
+  Minute?: int;
 };
 
 type MedlineCitation = {
-  PMID: number;
+  PMID: int;
   DateRevised: DateRevised;
   Article: Article;
   MedlineJournalInfo: MedlineJournalInfo;
@@ -52,7 +54,7 @@ type KeywordList = {
 type MedlineJournalInfo = {
   Country: string;
   MedlineTA: string;
-  NlmUniqueID: number;
+  NlmUniqueID: int;
   ISSNLinking: string;
 };
 
@@ -95,7 +97,7 @@ type Abstract = {
 type AbstractText =
   | string
   | {
-      sub: number[];
+      sub: int[];
       "#text": string;
     };
 
@@ -111,18 +113,18 @@ type Journal = {
 };
 
 type JournalIssue = {
-  Volume: number;
+  Volume: int;
   PubDate: PubDate;
 };
 
 type PubDate = {
-  Year: number;
+  Year: int;
   Month: string;
-  Day: number;
+  Day: int;
 };
 
 type DateRevised = {
-  Year: number;
-  Month: number;
-  Day: number;
+  Year: int;
+  Month: int;
+  Day: int;
 };

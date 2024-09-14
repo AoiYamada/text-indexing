@@ -1,6 +1,8 @@
+import { int } from "./alias";
+
 type PaginationQuery = {
-  from?: number;
-  size?: number;
+  from?: int;
+  size?: int;
 };
 
 export default PaginationQuery;

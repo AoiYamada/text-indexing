@@ -10,6 +10,7 @@ import StemDocStatsRepository from "./repositories/db/StemDocStatsRepository";
 import StemRepository from "./repositories/db/StemRepository";
 import TwitterRepository from "./repositories/db/TwitterRepository";
 import EsDocRepository from "./repositories/elasticsearch/EsDocRepository";
+import EnsureEsDocIndxService from "./services/EnsureEsDocIndxService";
 
 // Elasticsearch Repositories
 export const esDocRepo = new EsDocRepository(es, EsIndex.Doc);
@@ -26,3 +27,4 @@ export const pubmedRepo = new PubmedRepository(db, schema.pubmed);
 export const twitterRepo = new TwitterRepository(db, schema.twitter);
 
 // TODO: services
+export const ensureEsDocIndxService = new EnsureEsDocIndxService(esDocRepo);

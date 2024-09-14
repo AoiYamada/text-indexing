@@ -1,7 +1,9 @@
+import { int } from "../types/alias";
+
 type TextStats = {
-  charCount: number;
-  wordCount: number;
-  sentenceCount: number;
+  charCount: int;
+  wordCount: int;
+  sentenceCount: int;
 };
 
 // naive implementation, because 2 splits are used, each with O(n) complexity

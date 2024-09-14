@@ -6,6 +6,7 @@ import {
 } from "drizzle-orm/sqlite-core";
 import { GetSelectTableSelection } from "drizzle-orm/query-builders/select.types";
 import { TwitterTable } from "../../db/schema/twitter";
+import { int } from "../../types/alias";
 
 class TwitterRepository {
   constructor(private db: DbClient, private table: TwitterTable) {}
@@ -27,11 +28,11 @@ class TwitterRepository {
     return this.db.select().from(this.table).where(filter);
   }
 
-  async getById(id: number) {
+  async getById(id: int) {
     return this.db.select().from(this.table).where(eq(this.table.id, id));
   }
 
-  async update(id: number, data: UpdateTwitter) {
+  async update(id: int, data: UpdateTwitter) {
     const [twitter] = await this.db
       .update(this.table)
       .set(data)
@@ -41,7 +42,7 @@ class TwitterRepository {
     return twitter;
   }
 
-  async delete(id: number) {
+  async delete(id: int) {
     return this.db.delete(this.table).where(eq(this.table.id, id));
   }
 }

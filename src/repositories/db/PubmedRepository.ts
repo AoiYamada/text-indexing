@@ -6,6 +6,7 @@ import {
 } from "drizzle-orm/sqlite-core";
 import { GetSelectTableSelection } from "drizzle-orm/query-builders/select.types";
 import { PubmedTable } from "../../db/schema/pubmed";
+import { int } from "../../types/alias";
 
 class PubmedRepository {
   constructor(private db: DbClient, private table: PubmedTable) {}
@@ -24,11 +25,11 @@ class PubmedRepository {
     return this.db.select().from(this.table).where(filter);
   }
 
-  async getById(id: number) {
+  async getById(id: int) {
     return this.db.select().from(this.table).where(eq(this.table.id, id));
   }
 
-  async update(id: number, data: UpdatePubmed) {
+  async update(id: int, data: UpdatePubmed) {
     const [pubmed] = await this.db
       .update(this.table)
       .set(data)
@@ -38,7 +39,7 @@ class PubmedRepository {
     return pubmed;
   }
 
-  async delete(id: number) {
+  async delete(id: int) {
     return this.db.delete(this.table).where(eq(this.table.id, id));
   }
 }

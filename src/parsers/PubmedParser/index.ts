@@ -1,5 +1,6 @@
 import { XMLParser } from "fast-xml-parser";
 import { PubmedRawData } from "./types";
+import { int } from "../../types/alias";
 
 type RawXML = Parameters<XMLParser["parse"]>[0];
 
@@ -15,7 +16,7 @@ class PubmedParser {
     this._parser = new XMLParser();
   }
 
-  public parse(xml: RawXML, count?: number): Pubmed[] {
+  public parse(xml: RawXML, count?: int): Pubmed[] {
     const data: PubmedRawData = this._parser.parse(xml);
     let i = 0;
     const articles: Pubmed[] = [];
