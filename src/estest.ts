@@ -1,6 +1,7 @@
 import "dotenv/config";
 import es from "./elasticsearch";
 import EsDocRepository from "./repositories/elasticsearch/EsDocRepository";
+import logger from "./logger";
 
 const index = "game-of-thrones";
 const esDocRepo = new EsDocRepository(es, index);
@@ -44,9 +45,9 @@ async function run() {
   // Let's search!
   const result = await esDocRepo.search("I drink and I don't know things.");
 
-  console.log(JSON.stringify(result, null, 2));
+  logger.info(JSON.stringify(result, null, 2));
 }
 
 run().catch((error) => {
-  console.log(JSON.stringify(error.meta.body.error, null, 2));
+  logger.error(JSON.stringify(error.meta.body.error, null, 2));
 });
