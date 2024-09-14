@@ -1,5 +1,6 @@
 import { EsClient } from "../../elasticsearch/client";
 import docIndex from "../../elasticsearch/indices/doc";
+import { DocAnalyzer } from "../../elasticsearch/indices/doc/analysis";
 import docMappings from "../../elasticsearch/indices/doc/mappings";
 import logger from "../../logger";
 import { int } from "../../types/alias";
@@ -192,6 +193,41 @@ class EsDocRepository {
       index: this.index,
     });
   }
+
+  async analyze(text: string, analyzer: DocAnalyzer): Promise<TermStats> {
+    const { tokens = [] } = await this.client.indices.analyze({
+      index: this.index,
+      analyzer,
+      text,
+    });
+
+    const statsTable = tokens.reduce<Record<string, int>>((stats, token) => {
+      const { token: term } = token;
+
+      if (stats[term] === undefined) {
+        stats[term] = 1;
+      } else {
+        stats[term] += 1;
+      }
+
+      return stats;
+    }, {});
+
+    const stats: TermStats = Object.entries(statsTable).map(
+      ([term, count]) => ({
+        term,
+        count,
+      })
+    );
+
+    return stats;
+  }
+
+  async refresh() {
+    return this.client.indices.refresh({
+      index: this.index,
+    });
+  }
 }
 
 export default EsDocRepository;
@@ -233,3 +269,8 @@ type EsDocData = {
     content: string;
   }[];
 };
+
+type TermStats = {
+  term: string;
+  count: int;
+}[];

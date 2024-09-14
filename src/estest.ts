@@ -2,14 +2,41 @@ import "dotenv/config";
 import es from "./elasticsearch";
 import EsDocRepository from "./repositories/elasticsearch/EsDocRepository";
 import logger from "./logger";
+import { DocAnalyzer } from "./elasticsearch/indices/doc/analysis";
 
 const index = "game-of-thrones";
 const esDocRepo = new EsDocRepository(es, index);
 
 async function run() {
   // Let's start by indexing some data
-  await esDocRepo.init();
+  // await esDocRepo.init();
+  // await prepareDate();
 
+  // here we are forcing an index refresh, otherwise we will not
+  // get any result in the consequent search
+  // await esDocRepo.refresh();
+
+  // await testSearch();
+  // await testAnalyzer();
+  const terms = await es.termvectors({
+    index,
+    id: "3",
+    fields: ["sentences.content"],
+    offsets: false,
+    payloads: false,
+    positions: false,
+    term_statistics: true,
+    field_statistics: true,
+  });
+
+  console.log(JSON.stringify(terms, null, 2));
+}
+
+run().catch((error) => {
+  logger.error(JSON.stringify(error.meta.body.error, null, 2));
+});
+
+async function prepareDate() {
   await esDocRepo.create({
     doc_id: 1,
     doc_type: "twitter",
@@ -37,17 +64,19 @@ async function run() {
     doc_id: 3,
     sentence: "I eat and I don't know things.",
   });
+}
 
-  // here we are forcing an index refresh, otherwise we will not
-  // get any result in the consequent search
-  await es.indices.refresh({ index });
-
-  // Let's search!
+async function testSearch() {
   const result = await esDocRepo.search("I drink and I don't know things.");
 
   logger.info(JSON.stringify(result, null, 2));
 }
 
-run().catch((error) => {
-  logger.error(JSON.stringify(error.meta.body.error, null, 2));
-});
+async function testAnalyzer() {
+  const tokenStats = await esDocRepo.analyze(
+    "I do drink and I don't know things. You go to work by bus.",
+    DocAnalyzer.Stop
+  );
+
+  console.log(JSON.stringify(tokenStats, null, 2));
+}

@@ -1,29 +1,44 @@
 import { IndicesIndexSettingsAnalysis } from "@elastic/elasticsearch/lib/api/types";
 
+export enum DocAnalyzer {
+  Stop = "stop_analyzer",
+  Default = "default_analyzer",
+}
+
+export enum DocFilter {
+  Lowercase = "lowercase",
+  Stop = "stop",
+  Snowball = "snowball",
+}
+
+export enum DocNormalizer {
+  Lowercase = "lowercase",
+}
+
 const docAnalysis: IndicesIndexSettingsAnalysis = {
   analyzer: {
-    stop_analyzer: {
+    [DocAnalyzer.Stop]: {
       type: "custom",
       tokenizer: "standard",
-      filter: ["lowercase", "snowball", "stop"],
+      filter: [DocFilter.Lowercase, DocFilter.Snowball, DocFilter.Stop],
     },
-    default_analyzer: {
+    [DocAnalyzer.Default]: {
       type: "custom",
       tokenizer: "standard",
-      filter: ["lowercase", "snowball"],
+      filter: [DocFilter.Lowercase, DocFilter.Snowball],
     },
   },
   normalizer: {
-    lowercase: {
+    [DocNormalizer.Lowercase]: {
       type: "lowercase",
     },
   },
   filter: {
-    stop: {
+    [DocFilter.Stop]: {
       type: "stop",
       stopwords: "_english_",
     },
-    snowball: {
+    [DocFilter.Snowball]: {
       type: "snowball",
       language: "English",
     },
