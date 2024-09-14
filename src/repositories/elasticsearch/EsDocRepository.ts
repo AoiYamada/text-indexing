@@ -125,8 +125,8 @@ class EsDocRepository {
                 "sentences.content": {
                   // Only want the best match part
                   // https://www.elastic.co/guide/en/elasticsearch/reference/7.5/search-request-body.html#highlighting-settings
-                  fragment_size: 500,
-                  no_match_size: 200,
+                  fragment_size: 50,
+                  no_match_size: 30,
                   number_of_fragments: 1,
                 },
               },
@@ -137,6 +137,9 @@ class EsDocRepository {
       ...pagination,
       // ...sort.toQuery(),
     });
+
+    // console.log(JSON.stringify(hits.hits, null, 2));
+
     const items = hits.hits
       .filter((hit) => hit._source !== null)
       .map((hit) => {
@@ -150,7 +153,9 @@ class EsDocRepository {
                 // _source,
                 highlight,
               }): string[] | null =>
-                highlight?.["sentences"] ? highlight["sentences"] : null
+                highlight?.["sentences.content"]
+                  ? highlight["sentences.content"]
+                  : null
             )
             .filter((item) => item !== null)
             .flat();
