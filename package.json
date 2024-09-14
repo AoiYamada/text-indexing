@@ -15,7 +15,8 @@
     "db:studio": "drizzle-kit studio",
     "test": "jest",
     "test:debug": "node --inspect node_modules/.bin/jest --runInBand",
-    "docker-up": "docker compose -f docker-compose.yml -f docker-compose/elasticsearch.yml up -d"
+    "docker:up": "docker compose -f docker-compose.yml -f docker-compose/elasticsearch.yml up -d",
+    "docker:down": "docker compose -f docker-compose.yml -f docker-compose/elasticsearch.yml down"
   },
   "dependencies": {
     "better-sqlite3": "11.3.0",
