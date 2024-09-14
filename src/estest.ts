@@ -18,15 +18,12 @@ async function run() {
 
   // await testSearch();
   // await testAnalyzer();
-  const terms = await es.termvectors({
-    index,
-    id: "3",
-    fields: ["sentences.content"],
+  const terms = await esDocRepo.termVectors(3, ["sentences.content"], {
     offsets: false,
     payloads: false,
     positions: false,
-    term_statistics: true,
-    field_statistics: true,
+    term_statistics: false,
+    field_statistics: false,
   });
 
   console.log(JSON.stringify(terms, null, 2));

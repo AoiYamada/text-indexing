@@ -11,6 +11,7 @@
     "pubmed",
     "servername",
     "stopwords",
+    "termvectors",
     "ulimits",
     "xpack"
   ]

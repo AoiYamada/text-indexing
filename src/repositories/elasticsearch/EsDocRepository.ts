@@ -223,6 +223,32 @@ class EsDocRepository {
     return stats;
   }
 
+  async termVectors(
+    doc_id: int,
+    fields: string[],
+    options: {
+      offsets?: boolean;
+      payloads?: boolean;
+      positions?: boolean;
+      term_statistics?: boolean;
+      field_statistics?: boolean;
+    } = {}
+  ) {
+    const { term_vectors } = await this.client.termvectors({
+      index: this.index,
+      id: esDocToId({ doc_id }),
+      fields, // ["sentences.content"]
+      ...options,
+      // offsets: false,
+      // payloads: false,
+      // positions: false,
+      // term_statistics: true,
+      // field_statistics: true,
+    });
+
+    return term_vectors;
+  }
+
   async refresh() {
     return this.client.indices.refresh({
       index: this.index,
