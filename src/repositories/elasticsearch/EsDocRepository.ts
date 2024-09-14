@@ -2,6 +2,7 @@ import { EsClient } from "../../elasticsearch/client";
 import docIndex from "../../elasticsearch/indices/doc";
 import docMappings from "../../elasticsearch/indices/doc/mappings";
 import logger from "../../logger";
+import PaginationQuery from "../../types/PaginationQuery";
 import omit from "../../utils/omit";
 
 class EsDocRepository {
@@ -96,8 +97,8 @@ class EsDocRepository {
   }
 
   async search(
-    query: string
-    // pagination: PaginationQueryDto = new PaginationQueryDto(),
+    query: string,
+    pagination: PaginationQuery = {}
     // sort: SortQueryDto = new SortQueryDto()
   ) {
     const { hits } = await this.client.search<EsDoc>({
@@ -133,8 +134,8 @@ class EsDocRepository {
           },
         },
       },
+      ...pagination,
       // ...sort.toQuery(),
-      // ...pagination.toQuery(),
     });
     const items = hits.hits
       .filter((hit) => hit._source !== null)
