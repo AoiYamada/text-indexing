@@ -12,7 +12,7 @@ const stem = sqliteTable(
     term: text("term").notNull(),
   },
   (table) => ({
-    termIdx: uniqueIndex("term_idx").on(table.term),
+    termIdx: uniqueIndex("stem_term_idx").on(table.term),
   })
 );
 

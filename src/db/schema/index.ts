@@ -1,8 +1,8 @@
 import docMeta from "./doc-meta";
-import docs from "./docs";
+import doc from "./doc";
 import pubmed from "./pubmed";
 import stem from "./stem";
 import stemDocStats from "./stemDocStats";
 import twitter from "./twitter";
 
-export { docMeta, docs, pubmed, stem, stemDocStats, twitter };
+export { docMeta, doc, pubmed, stem, stemDocStats, twitter };

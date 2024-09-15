@@ -3,8 +3,8 @@ import { table } from "console";
 import { sqliteTable, text, integer, index } from "drizzle-orm/sqlite-core";
 import { DocTypeValues } from "../../constants/DocType";
 
-const docs = sqliteTable(
-  "docs",
+const doc = sqliteTable(
+  "doc",
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
     type: text("type", {
@@ -20,10 +20,10 @@ const docs = sqliteTable(
     //   .default(sql`(current_timestamp)`),
   },
   (table) => ({
-    typeIdx: index("type_idx").on(table.type),
+    typeIdx: index("doc_type_idx").on(table.type),
   })
 );
 
-export default docs;
+export default doc;
 
-export type DocsTable = typeof docs;
+export type DocTable = typeof doc;

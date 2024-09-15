@@ -4,20 +4,20 @@ import {
   text,
   uniqueIndex,
 } from "drizzle-orm/sqlite-core";
-import docs from "./docs";
+import doc from "./doc";
 
 const pubmed = sqliteTable(
   "pubmed",
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
     docId: integer("doc_id")
-      .references(() => docs.id)
+      .references(() => doc.id)
       .notNull(),
     title: text("title").notNull(),
     abstract: text("abstract").notNull(),
   },
   (table) => ({
-    docIdIdx: uniqueIndex("doc_id_idx").on(table.docId),
+    docIdIdx: uniqueIndex("pubmed_doc_id_idx").on(table.docId),
   })
 );
 

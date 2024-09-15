@@ -20,7 +20,7 @@ import CreateDocWorker from "./workers/CreateDocWorker";
 export const esDocRepo = new EsDocRepository(es, EsIndex.Doc);
 
 // SQLite Repositories
-export const docRepo = new DocRepository(db, schema.docs);
+export const docRepo = new DocRepository(db, schema.doc);
 export const docMetaRepo = new DocMetaRepository(db, schema.docMeta);
 export const stemRepo = new StemRepository(db, schema.stem);
 export const stemDocStatsRepo = new StemDocStatsRepository(

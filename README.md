@@ -11,7 +11,7 @@ Unzip it into `./data-source/pubmed24n1219.xml`
 ## Temp test
 
 ```bash
-yarn tsx src/estest.ts
+yarn tsx src/es-test.ts
 ```
 
 ## Description

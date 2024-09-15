@@ -4,19 +4,19 @@ import {
   text,
   uniqueIndex,
 } from "drizzle-orm/sqlite-core";
-import docs from "./docs";
+import doc from "./doc";
 
 const twitter = sqliteTable(
   "twitter",
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
     docId: integer("doc_id")
-      .references(() => docs.id)
+      .references(() => doc.id)
       .notNull(),
     content: text("content").notNull(),
   },
   (table) => ({
-    docIdIdx: uniqueIndex("doc_id_idx").on(table.docId),
+    docIdIdx: uniqueIndex("twitter_doc_id_idx").on(table.docId),
   })
 );
 

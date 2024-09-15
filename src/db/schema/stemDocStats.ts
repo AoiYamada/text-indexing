@@ -1,5 +1,5 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import docs from "./docs";
+import doc from "./doc";
 import stem from "./stem";
 import { index } from "drizzle-orm/sqlite-core";
 import { DocTypeValues } from "../../constants/DocType";
@@ -12,7 +12,7 @@ const stemDocStats = sqliteTable(
       .references(() => stem.id)
       .notNull(),
     docId: integer("doc_id")
-      .references(() => docs.id)
+      .references(() => doc.id)
       .notNull(),
     docType: text("doc_type", {
       enum: DocTypeValues,
@@ -20,10 +20,19 @@ const stemDocStats = sqliteTable(
     count: integer("count").notNull(),
   },
   (table) => ({
-    docIdIdx: index("doc_id_count_idx").on(table.docId, table.count),
-    stemIdCountIdx: index("stem_id_count_idx").on(table.stemId, table.count),
-    docTypeIdx: index("doc_type_count_idx").on(table.docType, table.count),
-    countIdx: index("count_idx").on(table.count),
+    docIdIdx: index("stem_doc_stats_doc_id_count_idx").on(
+      table.docId,
+      table.count
+    ),
+    stemIdCountIdx: index("stem_doc_stats_stem_id_count_idx").on(
+      table.stemId,
+      table.count
+    ),
+    docTypeIdx: index("stem_doc_stats_doc_type_count_idx").on(
+      table.docType,
+      table.count
+    ),
+    countIdx: index("stem_doc_stats_count_idx").on(table.count),
   })
 );
 

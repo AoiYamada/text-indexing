@@ -5,11 +5,11 @@ import {
   SQLiteUpdateSetSource,
 } from "drizzle-orm/sqlite-core";
 import { GetSelectTableSelection } from "drizzle-orm/query-builders/select.types";
-import { DocsTable } from "../../db/schema/docs";
+import { DocTable } from "../../db/schema/doc";
 import { int } from "../../types/alias";
 
 class DocRepository {
-  constructor(private db: DbClient, private table: DocsTable) {}
+  constructor(private db: DbClient, private table: DocTable) {}
 
   async create(value: InsertDoc) {
     const [doc] = await this.db.insert(this.table).values(value).returning();
@@ -51,9 +51,9 @@ class DocRepository {
 
 export default DocRepository;
 
-type InsertDoc = SQLiteInsertValue<DocsTable>;
-type UpdateDoc = SQLiteUpdateSetSource<DocsTable>;
+type InsertDoc = SQLiteInsertValue<DocTable>;
+type UpdateDoc = SQLiteUpdateSetSource<DocTable>;
 type Filter =
-  | ((aliases: GetSelectTableSelection<DocsTable>) => SQL | undefined)
+  | ((aliases: GetSelectTableSelection<DocTable>) => SQL | undefined)
   | SQL
   | undefined;

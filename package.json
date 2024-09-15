@@ -10,7 +10,7 @@
     "build": "rm -rf ./dist && tsc -p tsconfig.json",
     "cli": "tsx ./src/bin/cli.ts",
     "cli:debug": "tsx --inspect-brk ./src/bin/cli.ts",
-    "db:generate": "drizzle-kit generate",
+    "db:gen": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "test": "jest",
