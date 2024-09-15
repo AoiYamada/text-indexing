@@ -14,11 +14,11 @@ class DocRepository {
   async create(value: InsertDoc) {
     const [doc] = await this.db.insert(this.table).values(value).returning();
 
-    return doc;
+    return doc!;
   }
 
   async bulkCreate(values: InsertDoc[]) {
-    return await this.db.insert(this.table).values(values).returning();
+    return this.db.insert(this.table).values(values).returning();
   }
 
   async search(filter: Filter) {
@@ -26,7 +26,12 @@ class DocRepository {
   }
 
   async getById(id: int) {
-    return this.db.select().from(this.table).where(eq(this.table.id, id));
+    const [doc] = await this.db
+      .select()
+      .from(this.table)
+      .where(eq(this.table.id, id));
+
+    return doc;
   }
 
   async update(id: int, data: UpdateDoc) {

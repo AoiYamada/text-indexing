@@ -1,4 +1,4 @@
-import { int } from "../../../types/alias";
+import { int } from "../../../../types/alias";
 
 // use https://json-5.com/ to convert json ts types
 export type PubmedRawData = {

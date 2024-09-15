@@ -17,7 +17,7 @@ class DocMetaRepository {
       .values(value)
       .returning();
 
-    return docMeta;
+    return docMeta!;
   }
 
   async bulkCreate(values: InsertDocMeta[]) {
@@ -29,7 +29,12 @@ class DocMetaRepository {
   }
 
   async getById(id: int) {
-    return this.db.select().from(this.table).where(eq(this.table.id, id));
+    const [docMeta] = await this.db
+      .select()
+      .from(this.table)
+      .where(eq(this.table.id, id));
+
+    return docMeta;
   }
 
   async update(id: int, data: UpdateDocMeta) {

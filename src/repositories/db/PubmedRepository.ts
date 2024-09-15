@@ -14,7 +14,7 @@ class PubmedRepository {
   async create(value: InsertPubmed) {
     const [pubmed] = await this.db.insert(this.table).values(value).returning();
 
-    return pubmed;
+    return pubmed!;
   }
 
   async bulkCreate(values: InsertPubmed[]) {
@@ -26,7 +26,21 @@ class PubmedRepository {
   }
 
   async getById(id: int) {
-    return this.db.select().from(this.table).where(eq(this.table.id, id));
+    const [pubmed] = await this.db
+      .select()
+      .from(this.table)
+      .where(eq(this.table.id, id));
+
+    return pubmed;
+  }
+
+  async getByDocId(docId: int) {
+    const [pubmed] = await this.db
+      .select()
+      .from(this.table)
+      .where(eq(this.table.docId, docId));
+
+    return pubmed;
   }
 
   async update(id: int, data: UpdatePubmed) {

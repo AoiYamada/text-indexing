@@ -1,9 +1,20 @@
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import {
+  integer,
+  sqliteTable,
+  text,
+  uniqueIndex,
+} from "drizzle-orm/sqlite-core";
 
-const stem = sqliteTable("stem", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  term: text("term").notNull(),
-});
+const stem = sqliteTable(
+  "stem",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    term: text("term").notNull(),
+  },
+  (table) => ({
+    termIdx: uniqueIndex("term_idx").on(table.term),
+  })
+);
 
 export default stem;
 

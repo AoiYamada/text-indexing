@@ -1,7 +1,13 @@
 import { Command } from "commander";
 import { readFileSync } from "fs";
-import PubmedParser from "../../parsers/PubmedParser";
-import { ensureEsDocIndxService } from "../../container";
+
+import {
+  createDocEmitter,
+  createDocWorker,
+  ensureEsDocIndxService,
+} from "../../container";
+import PubmedParser from "../../utils/parsers/PubmedParser";
+import DocType from "../../constants/DocType";
 
 const initCmd = new Command("init");
 
@@ -11,13 +17,19 @@ initCmd.description("Initialize the project").action(async () => {
   const xml = readFileSync("data-source/pubmed24n1219.xml", {
     encoding: "utf-8",
   });
+  const articles = new PubmedParser().parse(xml, 5);
 
-  const articles = new PubmedParser().parse(xml, 3);
+  createDocWorker.start();
 
-  // Demonstrate the output
-  console.log(JSON.stringify(articles, null, 2));
+  for (const article of articles) {
+    createDocEmitter.emitCreateDocEvent({
+      type: DocType.pubmed,
+      title: article.title,
+      abstract: article.abstract,
+    });
+  }
 
-  // TODO: Save the articles to the database
+  createDocEmitter.emitDoneEvent();
 });
 
 export default initCmd;

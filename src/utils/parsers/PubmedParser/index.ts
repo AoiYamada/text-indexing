@@ -1,6 +1,6 @@
 import { XMLParser } from "fast-xml-parser";
 import { PubmedRawData } from "./types";
-import { int } from "../../types/alias";
+import { int } from "../../../types/alias";
 
 type RawXML = Parameters<XMLParser["parse"]>[0];
 

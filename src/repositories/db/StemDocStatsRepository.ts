@@ -17,7 +17,7 @@ class StemDocStatsRepository {
       .values(value)
       .returning();
 
-    return stemDocStats;
+    return stemDocStats!;
   }
 
   async bulkCreate(values: InsertStemDocStats[]) {
@@ -29,7 +29,12 @@ class StemDocStatsRepository {
   }
 
   async getById(id: int) {
-    return this.db.select().from(this.table).where(eq(this.table.id, id));
+    const [stemDocStats] = await this.db
+      .select()
+      .from(this.table)
+      .where(eq(this.table.id, id));
+
+    return stemDocStats;
   }
 
   async update(id: int, data: UpdateStemDocStats) {

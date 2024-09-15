@@ -17,7 +17,7 @@ class TwitterRepository {
       .values(value)
       .returning();
 
-    return twitter;
+    return twitter!;
   }
 
   async bulkCreate(values: InsertTwitter[]) {
@@ -29,7 +29,12 @@ class TwitterRepository {
   }
 
   async getById(id: int) {
-    return this.db.select().from(this.table).where(eq(this.table.id, id));
+    const [twitter] = await this.db
+      .select()
+      .from(this.table)
+      .where(eq(this.table.id, id));
+
+    return twitter;
   }
 
   async update(id: int, data: UpdateTwitter) {

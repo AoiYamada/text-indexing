@@ -50,6 +50,7 @@ CREATE INDEX `word_count_idx` ON `doc_meta` (`word_count`);--> statement-breakpo
 CREATE INDEX `sentence_count_idx` ON `doc_meta` (`sentence_count`);--> statement-breakpoint
 CREATE INDEX `type_idx` ON `docs` (`type`);--> statement-breakpoint
 CREATE UNIQUE INDEX `doc_id_idx` ON `pubmed` (`doc_id`);--> statement-breakpoint
+CREATE UNIQUE INDEX `term_idx` ON `stem` (`term`);--> statement-breakpoint
 CREATE INDEX `doc_id_count_idx` ON `stem_doc_stats` (`doc_id`,`count`);--> statement-breakpoint
 CREATE INDEX `stem_id_count_idx` ON `stem_doc_stats` (`stem_id`,`count`);--> statement-breakpoint
 CREATE INDEX `doc_type_count_idx` ON `stem_doc_stats` (`doc_type`,`count`);--> statement-breakpoint
