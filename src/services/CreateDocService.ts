@@ -13,6 +13,7 @@ import hash from "../utils/hash";
 import textStats from "../utils/text-stats";
 import Service from "./interfaces/Service";
 import textSplit from "../utils/text-split";
+import logger from "../logger";
 
 class CreateDocService implements Service {
   constructor(
@@ -60,6 +61,12 @@ class CreateDocService implements Service {
       for (const pubmed of pubmedArticles) {
         if (pubmed?.abstract === payload.abstract) {
           // content already exists
+          logger.info(
+            `Doc with same content already exists, id[${docId}], content[${payload.abstract.slice(
+              0,
+              50
+            )}...]`
+          );
           return;
         }
       }
