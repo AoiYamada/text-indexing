@@ -1,5 +1,3 @@
-// import { sql } from "drizzle-orm";
-import { table } from "console";
 import { sqliteTable, text, integer, index } from "drizzle-orm/sqlite-core";
 import { DocTypeValues } from "../../constants/DocType";
 

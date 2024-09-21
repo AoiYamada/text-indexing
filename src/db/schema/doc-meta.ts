@@ -1,7 +1,11 @@
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import {
+  index,
+  integer,
+  sqliteTable,
+  text,
+  uniqueIndex,
+} from "drizzle-orm/sqlite-core";
 import doc from "./doc";
-import { uniqueIndex } from "drizzle-orm/sqlite-core";
-import { index } from "drizzle-orm/sqlite-core";
 
 const docMeta = sqliteTable(
   "doc_meta",

@@ -1,10 +1,10 @@
 import { eq, SQL } from "drizzle-orm";
-import { DbClient } from "../../db";
 import {
   SQLiteInsertValue,
   SQLiteUpdateSetSource,
 } from "drizzle-orm/sqlite-core";
 import { GetSelectTableSelection } from "drizzle-orm/query-builders/select.types";
+import { DbClient } from "../../db";
 import { DocTable } from "../../db/schema/doc";
 import { int } from "../../types/alias";
 
