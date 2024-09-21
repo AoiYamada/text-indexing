@@ -27,12 +27,21 @@ class StemRepository {
       .returning();
   }
 
+  // sqlite version
+  // async upsert(term: string) {
+  //   const [stem] = await this.search(term);
+
+  //   if (stem) return stem;
+
+  //   return this.create(term);
+  // }
+
   async upsert(term: string) {
+    await this.db.insert(this.table).values({ term }).onConflictDoNothing();
+
     const [stem] = await this.search(term);
 
-    if (stem) return stem;
-
-    return this.create(term);
+    return stem!;
   }
 
   async search(term: string | string[]) {

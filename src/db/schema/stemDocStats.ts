@@ -1,13 +1,12 @@
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { index, integer, pgTable, serial, text } from "drizzle-orm/pg-core";
 import doc from "./doc";
 import stem from "./stem";
-import { index } from "drizzle-orm/sqlite-core";
 import { DocTypeValues } from "../../constants/DocType";
 
-const stemDocStats = sqliteTable(
+const stemDocStats = pgTable(
   "stem_doc_stats",
   {
-    id: integer("id").primaryKey({ autoIncrement: true }),
+    id: serial("id").primaryKey(),
     stemId: integer("stem_id")
       .references(() => stem.id)
       .notNull(),

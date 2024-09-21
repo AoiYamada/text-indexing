@@ -1,10 +1,8 @@
 import { eq, SQL } from "drizzle-orm";
-import { DbClient } from "../../db";
-import {
-  SQLiteInsertValue,
-  SQLiteUpdateSetSource,
-} from "drizzle-orm/sqlite-core";
+import { PgInsertValue, PgUpdateSetSource } from "drizzle-orm/pg-core";
 import { GetSelectTableSelection } from "drizzle-orm/query-builders/select.types";
+
+import { DbClient } from "../../db";
 import { TwitterTable } from "../../db/schema/twitter";
 import { int } from "../../types/alias";
 
@@ -54,8 +52,8 @@ class TwitterRepository {
 
 export default TwitterRepository;
 
-type InsertTwitter = SQLiteInsertValue<TwitterTable>;
-type UpdateTwitter = SQLiteUpdateSetSource<TwitterTable>;
+type InsertTwitter = PgInsertValue<TwitterTable>;
+type UpdateTwitter = PgUpdateSetSource<TwitterTable>;
 type Filter =
   | ((aliases: GetSelectTableSelection<TwitterTable>) => SQL | undefined)
   | SQL

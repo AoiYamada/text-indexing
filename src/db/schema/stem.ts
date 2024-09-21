@@ -1,14 +1,9 @@
-import {
-  integer,
-  sqliteTable,
-  text,
-  uniqueIndex,
-} from "drizzle-orm/sqlite-core";
+import { serial, pgTable, text, uniqueIndex } from "drizzle-orm/pg-core";
 
-const stem = sqliteTable(
+const stem = pgTable(
   "stem",
   {
-    id: integer("id").primaryKey({ autoIncrement: true }),
+    id: serial("id").primaryKey(),
     term: text("term").notNull(),
   },
   (table) => ({

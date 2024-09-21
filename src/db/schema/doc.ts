@@ -1,12 +1,10 @@
-// import { sql } from "drizzle-orm";
-import { table } from "console";
-import { sqliteTable, text, integer, index } from "drizzle-orm/sqlite-core";
+import { pgTable, text, index, serial } from "drizzle-orm/pg-core";
 import { DocTypeValues } from "../../constants/DocType";
 
-const doc = sqliteTable(
+const doc = pgTable(
   "doc",
   {
-    id: integer("id").primaryKey({ autoIncrement: true }),
+    id: serial("id").primaryKey(),
     type: text("type", {
       enum: DocTypeValues,
     }).notNull(),

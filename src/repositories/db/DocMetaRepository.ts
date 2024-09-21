@@ -1,10 +1,8 @@
 import { eq, SQL } from "drizzle-orm";
-import { DbClient } from "../../db";
-import {
-  SQLiteInsertValue,
-  SQLiteUpdateSetSource,
-} from "drizzle-orm/sqlite-core";
+import { PgInsertValue, PgUpdateSetSource } from "drizzle-orm/pg-core";
 import { GetSelectTableSelection } from "drizzle-orm/query-builders/select.types";
+
+import { DbClient } from "../../db";
 import { DocMetaTable } from "../../db/schema/doc-meta";
 import { int } from "../../types/alias";
 
@@ -53,8 +51,8 @@ class DocMetaRepository {
 
 export default DocMetaRepository;
 
-type InsertDocMeta = SQLiteInsertValue<DocMetaTable>;
-type UpdateDocMeta = SQLiteUpdateSetSource<DocMetaTable>;
+type InsertDocMeta = PgInsertValue<DocMetaTable>;
+type UpdateDocMeta = PgUpdateSetSource<DocMetaTable>;
 type Filter =
   | ((aliases: GetSelectTableSelection<DocMetaTable>) => SQL | undefined)
   | SQL

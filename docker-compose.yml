@@ -1,1 +1,9 @@
-# Empty currently
+# services:
+#   setup:
+#     image: node:22.9.0-alpine
+#     volumes:
+#       - .:/app
+#       - /app/node_modules/
+#     working_dir: /app
+#     # keep the container running
+#     command: tail -f /dev/null

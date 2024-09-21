@@ -1,10 +1,8 @@
 import { eq, SQL } from "drizzle-orm";
-import { DbClient } from "../../db";
-import {
-  SQLiteInsertValue,
-  SQLiteUpdateSetSource,
-} from "drizzle-orm/sqlite-core";
+import { PgInsertValue, PgUpdateSetSource } from "drizzle-orm/pg-core";
 import { GetSelectTableSelection } from "drizzle-orm/query-builders/select.types";
+
+import { DbClient } from "../../db";
 import { PubmedTable } from "../../db/schema/pubmed";
 import { int } from "../../types/alias";
 
@@ -60,8 +58,8 @@ class PubmedRepository {
 
 export default PubmedRepository;
 
-type InsertPubmed = SQLiteInsertValue<PubmedTable>;
-type UpdatePubmed = SQLiteUpdateSetSource<PubmedTable>;
+type InsertPubmed = PgInsertValue<PubmedTable>;
+type UpdatePubmed = PgUpdateSetSource<PubmedTable>;
 type Filter =
   | ((aliases: GetSelectTableSelection<PubmedTable>) => SQL | undefined)
   | SQL

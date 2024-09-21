@@ -1,15 +1,16 @@
 import {
   integer,
-  sqliteTable,
+  pgTable,
+  serial,
   text,
   uniqueIndex,
-} from "drizzle-orm/sqlite-core";
+} from "drizzle-orm/pg-core";
 import doc from "./doc";
 
-const twitter = sqliteTable(
+const twitter = pgTable(
   "twitter",
   {
-    id: integer("id").primaryKey({ autoIncrement: true }),
+    id: serial("id").primaryKey(),
     docId: integer("doc_id")
       .references(() => doc.id)
       .notNull(),
