@@ -1,4 +1,4 @@
-import db, { DbClient } from "./client";
+import db, { DbClient } from "./pg-client";
 
 // Import all your schema definitions
 import * as schema from "./schema";

@@ -1,10 +1,13 @@
 import esConfig from "./elasticsearch-config";
-import sqliteConfig from "./sqlite-config";
+import pgConfig from "./pg-config";
+// import sqliteConfig from "./sqlite-config";
 
 const config = {
   databases: {
     elasticsearch: esConfig,
-    db: sqliteConfig,
+    // not in use anymore
+    // db: sqliteConfig,
+    db: pgConfig,
   },
 };
 

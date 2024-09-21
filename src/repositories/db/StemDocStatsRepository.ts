@@ -1,8 +1,5 @@
 import { eq, SQL } from "drizzle-orm";
-import {
-  SQLiteInsertValue,
-  SQLiteUpdateSetSource,
-} from "drizzle-orm/sqlite-core";
+import { PgInsertValue, PgUpdateSetSource } from "drizzle-orm/pg-core";
 import { GetSelectTableSelection } from "drizzle-orm/query-builders/select.types";
 import { DbClient } from "../../db";
 import { StemDocStatsTable } from "../../db/schema/stemDocStats";
@@ -54,8 +51,8 @@ class StemDocStatsRepository {
 
 export default StemDocStatsRepository;
 
-type InsertStemDocStats = SQLiteInsertValue<StemDocStatsTable>;
-type UpdateStemDocStats = SQLiteUpdateSetSource<StemDocStatsTable>;
+type InsertStemDocStats = PgInsertValue<StemDocStatsTable>;
+type UpdateStemDocStats = PgUpdateSetSource<StemDocStatsTable>;
 type Filter =
   | ((aliases: GetSelectTableSelection<StemDocStatsTable>) => SQL | undefined)
   | SQL

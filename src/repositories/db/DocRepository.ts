@@ -1,8 +1,5 @@
 import { eq, SQL } from "drizzle-orm";
-import {
-  SQLiteInsertValue,
-  SQLiteUpdateSetSource,
-} from "drizzle-orm/sqlite-core";
+import { PgInsertValue, PgUpdateSetSource } from "drizzle-orm/pg-core";
 import { GetSelectTableSelection } from "drizzle-orm/query-builders/select.types";
 import { DbClient } from "../../db";
 import { DocTable } from "../../db/schema/doc";
@@ -51,8 +48,8 @@ class DocRepository {
 
 export default DocRepository;
 
-type InsertDoc = SQLiteInsertValue<DocTable>;
-type UpdateDoc = SQLiteUpdateSetSource<DocTable>;
+type InsertDoc = PgInsertValue<DocTable>;
+type UpdateDoc = PgUpdateSetSource<DocTable>;
 type Filter =
   | ((aliases: GetSelectTableSelection<DocTable>) => SQL | undefined)
   | SQL

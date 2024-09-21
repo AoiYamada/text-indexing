@@ -1,15 +1,16 @@
 import {
   integer,
-  sqliteTable,
+  pgTable,
+  serial,
   text,
   uniqueIndex,
-} from "drizzle-orm/sqlite-core";
+} from "drizzle-orm/pg-core";
 import doc from "./doc";
 
-const pubmed = sqliteTable(
+const pubmed = pgTable(
   "pubmed",
   {
-    id: integer("id").primaryKey({ autoIncrement: true }),
+    id: serial("id").primaryKey(),
     docId: integer("doc_id")
       .references(() => doc.id)
       .notNull(),
