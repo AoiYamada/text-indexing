@@ -1,7 +1,6 @@
 import { eq, SQL } from "drizzle-orm";
 import { PgInsertValue, PgUpdateSetSource } from "drizzle-orm/pg-core";
 import { GetSelectTableSelection } from "drizzle-orm/query-builders/select.types";
-
 import { DbClient } from "../../db";
 import { TwitterTable } from "../../db/schema/twitter";
 import { int } from "../../types/alias";
