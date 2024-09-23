@@ -5,13 +5,13 @@ describe("textStats functions should produce the same output", () => {
     const sampleText =
       "This is a sample text. It contains multiple sentences! Does it work well? Let's find out.";
     const expected = {
-      totalCharCount: 89,        // 總字符數，包括空白字符
-      nonSpaceCharCount: 74,     // 不包括空白字符的字符數
+      totalCharCount: 89, // 總字符數，包括空白字符
+      nonSpaceCharCount: 74, // 不包括空白字符的字符數
       wordCount: 16,
       sentenceCount: 4,
-      asciiCount: 89,            // 所有字符都是 ASCII 字符
+      asciiCount: 89, // 所有字符都是 ASCII 字符
       nonAsciiCount: 0,
-      spaceCount: 15,            // 空白字符數量
+      spaceCount: 15, // 空白字符數量
     };
 
     expect(textStats(sampleText)).toEqual(expected);
@@ -98,13 +98,13 @@ describe("textStats functions should produce the same output", () => {
   test("Starting with space", () => {
     const sampleText = "  Hello";
     const expected = {
-      totalCharCount: 7,          // 包括兩個空格和5個字母
-      nonSpaceCharCount: 5,       // 只有 "Hello" 這5個字符
+      totalCharCount: 7, // 包括兩個空格和5個字母
+      nonSpaceCharCount: 5, // 只有 "Hello" 這5個字符
       wordCount: 1,
       sentenceCount: 1,
       asciiCount: 7,
       nonAsciiCount: 0,
-      spaceCount: 2,              // 前面的兩個空格
+      spaceCount: 2, // 前面的兩個空格
     };
 
     expect(textStats(sampleText)).toEqual(expected);

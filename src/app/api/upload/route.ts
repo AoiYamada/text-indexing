@@ -15,11 +15,8 @@ export async function POST(request: NextRequest) {
   const fileBuffer = Buffer.from(await file.arrayBuffer());
   writeFileSync(`data-source/${file.name}`, fileBuffer);
 
-  //   DO SOMETHING
   // parse xml
   const articles = new PubmedParser().parse(fileBuffer);
-//   console.log(articles) // verify
-
   createDocWorker.start();
 
   for (const article of articles) {

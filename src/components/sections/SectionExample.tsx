@@ -11,10 +11,12 @@ const SectionExample = () => {
   const { toast } = useToast();
 
   const onSubmit = (data: any) => {
-    // POST the file to /api/upload by using `fetch`
+    // POST the files to /api/upload by using `fetch`
 
     const formData = new FormData();
-    formData.append("file", data.file[0]);
+    Array.from(data.files as File[]).forEach((file) => {
+      formData.append("files", file);
+    });
 
     fetch("/api/upload", {
       method: "POST",
@@ -22,7 +24,7 @@ const SectionExample = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to upload the file");
+          throw new Error("Failed to upload the files");
         }
 
         return res.json();
@@ -41,7 +43,7 @@ const SectionExample = () => {
         console.error(err);
 
         toast({
-          description: "Failed to upload the file",
+          description: "Failed to upload the files",
           variant: "destructive",
           className: "bg-red-600",
         });
@@ -54,13 +56,13 @@ const SectionExample = () => {
       id="contact-us"
     >
       <h1 className="flex flex-col items-center justify-center text-3xl font-semibold sm:flex-row sm:text-4xl lg:text-5xl">
-        Upload HW1 xml file.
+        Upload Hw Xml files
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex w-full flex-col items-start justify-center gap-16"
       >
-        <Input type="file" {...register("file")} />
+        <Input type="file" multiple {...register("files")} />
         <Button type="submit" className="btn btn-primary">
           Upload
         </Button>

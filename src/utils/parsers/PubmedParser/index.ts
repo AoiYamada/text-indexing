@@ -31,14 +31,11 @@ class PubmedParser {
 
       const abstract = article.MedlineCitation.Article.Abstract;
 
-      console.log(abstract)
-
       articles.push({
         title: article.MedlineCitation.Article.ArticleTitle,
-        abstract:
-          typeof abstract.AbstractText === "string"
-            ? abstract.AbstractText
-            : Array.isArray(abstract.AbstractText) ? abstract.AbstractText.map(nestedTextToString).join(' '): abstract.AbstractText["#text"],
+        abstract: Array.isArray(abstract.AbstractText)
+          ? abstract.AbstractText.map(nestedTextToString).join(" ")
+          : nestedTextToString(abstract.AbstractText),
       });
 
       i++;
@@ -51,9 +48,7 @@ class PubmedParser {
 export default PubmedParser;
 
 function nestedTextToString(abstractText: AbstractText) {
-     if(typeof abstractText === "string") {
-        return abstractText
-     } else {
-        return abstractText["#text"]
-     }
+  return typeof abstractText === "string"
+    ? abstractText
+    : abstractText["#text"];
 }

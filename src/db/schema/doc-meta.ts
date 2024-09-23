@@ -26,12 +26,20 @@ const docMeta = sqliteTable(
   (table) => ({
     docIdIdx: uniqueIndex("doc_meta_doc_id_idx").on(table.docId),
     hashIdx: index("doc_meta_hash_idx").on(table.hash),
-    totalCharCountIdx: index("doc_meta_total_char_count_idx").on(table.totalCharCount),
-    nonSpaceCharCountIdx: index("doc_meta_non_space_char_count_idx").on(table.nonSpaceCharCount),
+    totalCharCountIdx: index("doc_meta_total_char_count_idx").on(
+      table.totalCharCount
+    ),
+    nonSpaceCharCountIdx: index("doc_meta_non_space_char_count_idx").on(
+      table.nonSpaceCharCount
+    ),
     wordCountIdx: index("doc_meta_word_count_idx").on(table.wordCount),
-    sentenceCountIdx: index("doc_meta_sentence_count_idx").on(table.sentenceCount),
+    sentenceCountIdx: index("doc_meta_sentence_count_idx").on(
+      table.sentenceCount
+    ),
     asciiCountIdx: index("doc_meta_ascii_count_idx").on(table.asciiCount),
-    nonAsciiCountIdx: index("doc_meta_non_ascii_count_idx").on(table.nonAsciiCount),
+    nonAsciiCountIdx: index("doc_meta_non_ascii_count_idx").on(
+      table.nonAsciiCount
+    ),
     spaceCountIdx: index("doc_meta_space_count_idx").on(table.spaceCount),
   })
 );

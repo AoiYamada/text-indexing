@@ -1,17 +1,6 @@
 import { int } from "../types/alias";
 
-type TextStats = {
-  totalCharCount: int;
-  nonSpaceCharCount: int;
-  wordCount: int;
-  sentenceCount: int;
-  asciiCount: int;
-  nonAsciiCount: int;
-  spaceCount: int;
-};
-
-// twice as fast as textStatsA, it's crucial for large texts
-function textStatsB(text: string): TextStats {
+function textStats(text: string): TextStats {
   let totalCharCount = 0; // 包含空格的字符數
   let nonSpaceCharCount = 0; // 不包含空格的字符數
   let wordCount = 0;
@@ -87,8 +76,14 @@ function textStatsB(text: string): TextStats {
   };
 }
 
-const textStats = textStatsB;
-
 export default textStats;
 
-export { textStatsB };
+type TextStats = {
+  totalCharCount: int;
+  nonSpaceCharCount: int;
+  wordCount: int;
+  sentenceCount: int;
+  asciiCount: int;
+  nonAsciiCount: int;
+  spaceCount: int;
+};
