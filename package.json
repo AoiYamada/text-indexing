@@ -27,6 +27,10 @@
     "@radix-ui/react-progress": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
+    "@visx/responsive": "^3.10.2",
+    "@visx/scale": "^3.5.0",
+    "@visx/text": "^3.3.0",
+    "@visx/wordcloud": "^3.3.0",
     "better-sqlite3": "11.3.0",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.1",
@@ -42,7 +46,8 @@
     "react-hook-form": "^7.53.0",
     "tailwind-merge": "2.5.2",
     "tailwindcss-animate": "1.0.7",
-    "winston": "3.14.2"
+    "winston": "3.14.2",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@elastic/elasticsearch": "8.15.0",

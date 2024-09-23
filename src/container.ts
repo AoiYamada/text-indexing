@@ -14,6 +14,7 @@ import EsDocRepository from "./repositories/elasticsearch/EsDocRepository";
 import CreateDocService from "./services/CreateDocService";
 import EnsureEsDocIndxService from "./services/EnsureEsDocIndxService";
 import ResetDocService from "./services/ResetDocService";
+import StatsService from "./services/StatsService";
 import WaitGroup from "./utils/wait-group";
 import CreateDocWorker from "./workers/CreateDocWorker";
 
@@ -26,7 +27,8 @@ export const docMetaRepo = new DocMetaRepository(db, schema.docMeta);
 export const stemRepo = new StemRepository(db, schema.stem);
 export const stemDocStatsRepo = new StemDocStatsRepository(
   db,
-  schema.stemDocStats
+  schema.stemDocStats,
+  schema.stem
 );
 export const pubmedRepo = new PubmedRepository(db, schema.pubmed);
 export const twitterRepo = new TwitterRepository(db, schema.twitter);
@@ -41,6 +43,7 @@ export const createDocService = new CreateDocService(
   stemDocStatsRepo,
   esDocRepo
 );
+export const statsService = new StatsService(stemDocStatsRepo);
 
 export const createDocEmitter = new CreateDocEmitter();
 export const createDocWorker = new CreateDocWorker(

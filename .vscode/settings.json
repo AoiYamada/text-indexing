@@ -15,6 +15,8 @@
     "tailwindcss",
     "termvectors",
     "ulimits",
+    "visx",
+    "wordcloud",
     "xpack"
   ]
 }

@@ -2,7 +2,7 @@
 
 import { useToast } from "@/hooks/use-toast";
 import React, { useState } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Progress } from "../ui/progress";
@@ -13,6 +13,7 @@ const UploadSection = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = (data: any) => {
     // POST the files to /api/upload by using `fetch`
 
@@ -60,6 +61,11 @@ const UploadSection = () => {
 
         // reset the form
         reset();
+
+        // refresh the page after 2 seconds
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       })
       .catch((err) => {
         console.error(err);
