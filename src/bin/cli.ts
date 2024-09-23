@@ -6,9 +6,11 @@ import { program } from "commander";
 import initCmd from "./cmds/initCmd";
 import statsCmd from "./cmds/statsCmd";
 import logger from "../logger";
+import resetCmd from "./cmds/resetCmd";
 
 program.addCommand(initCmd);
 program.addCommand(statsCmd);
+program.addCommand(resetCmd);
 
 program.parse(process.argv);
 

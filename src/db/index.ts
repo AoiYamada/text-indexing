@@ -7,7 +7,7 @@ import * as schema from "./schema";
 export default db;
 
 // Export all schemas
-export { DbClient, schema };
+export { type DbClient, schema };
 
 // Export any other database-related utilities
 export function getTableNames() {

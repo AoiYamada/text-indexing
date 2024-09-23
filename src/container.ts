@@ -13,6 +13,7 @@ import TwitterRepository from "./repositories/db/TwitterRepository";
 import EsDocRepository from "./repositories/elasticsearch/EsDocRepository";
 import CreateDocService from "./services/CreateDocService";
 import EnsureEsDocIndxService from "./services/EnsureEsDocIndxService";
+import ResetDocService from "./services/ResetDocService";
 import WaitGroup from "./utils/wait-group";
 import CreateDocWorker from "./workers/CreateDocWorker";
 
@@ -31,6 +32,7 @@ export const pubmedRepo = new PubmedRepository(db, schema.pubmed);
 export const twitterRepo = new TwitterRepository(db, schema.twitter);
 
 export const ensureEsDocIndxService = new EnsureEsDocIndxService(esDocRepo);
+export const resetDocService = new ResetDocService(db, esDocRepo);
 export const createDocService = new CreateDocService(
   docRepo,
   docMetaRepo,

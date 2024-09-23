@@ -1,4 +1,4 @@
-import { EsClient } from "../../elasticsearch/client";
+import { EsClient } from "../../elasticsearch";
 import docIndex from "../../elasticsearch/indices/doc";
 import { DocAnalyzer } from "../../elasticsearch/indices/doc/analysis";
 import docMappings from "../../elasticsearch/indices/doc/mappings";
@@ -251,6 +251,12 @@ class EsDocRepository {
 
   async refresh() {
     return this.client.indices.refresh({
+      index: this.index,
+    });
+  }
+
+  async destroy() {
+    return this.client.indices.delete({
       index: this.index,
     });
   }
