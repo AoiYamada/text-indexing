@@ -10,8 +10,22 @@ const SectionExample = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data: any) => {
-    console.log(data);
-    // Handle file upload process here
+    // POST the file to /api/upload by using `fetch`
+
+    const formData = new FormData();
+    formData.append("file", data.file[0]);
+
+    fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
