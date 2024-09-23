@@ -54,7 +54,7 @@ const SectionExample = () => {
       id="contact-us"
     >
       <h1 className="flex flex-col items-center justify-center text-3xl font-semibold sm:flex-row sm:text-4xl lg:text-5xl">
-        Section Example
+        Upload HW1 xml file.
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
