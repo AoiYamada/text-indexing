@@ -1,5 +1,5 @@
 // Reference: https://stackoverflow.com/questions/38750705/filter-object-properties-by-key-in-es6
-const omit = <K extends string[], T extends {}>(keys: K, obj: T) =>
+const omit = <K extends string[], T extends object>(keys: K, obj: T) =>
   Object.keys(obj)
     .filter((key) => !keys.includes(key))
     .reduce((acc, key) => {

@@ -2,7 +2,7 @@ import "dotenv/config";
 import es from "./elasticsearch";
 import EsDocRepository from "./repositories/elasticsearch/EsDocRepository";
 import logger from "./logger";
-import { DocAnalyzer } from "./elasticsearch/indices/doc/analysis";
+// import { DocAnalyzer } from "./elasticsearch/indices/doc/analysis";
 
 const index = "game-of-thrones";
 const esDocRepo = new EsDocRepository(es, index);
@@ -33,47 +33,47 @@ run().catch((error) => {
   logger.error(JSON.stringify(error.meta.body.error, null, 2));
 });
 
-async function prepareDate() {
-  await esDocRepo.create({
-    doc_id: 1,
-    doc_type: "twitter",
-    sentences: ["Winter is coming."],
-  });
+// async function prepareDate() {
+//   await esDocRepo.create({
+//     doc_id: 1,
+//     doc_type: "twitter",
+//     sentences: ["Winter is coming."],
+//   });
 
-  await esDocRepo.create({
-    doc_id: 2,
-    doc_type: "twitter",
-    sentences: ["I am the blood of the dragon."],
-  });
+//   await esDocRepo.create({
+//     doc_id: 2,
+//     doc_type: "twitter",
+//     sentences: ["I am the blood of the dragon."],
+//   });
 
-  await esDocRepo.create({
-    doc_id: 3,
-    doc_type: "twitter",
-    sentences: ["A mind needs books like a sword needs a whetstone."],
-  });
+//   await esDocRepo.create({
+//     doc_id: 3,
+//     doc_type: "twitter",
+//     sentences: ["A mind needs books like a sword needs a whetstone."],
+//   });
 
-  await esDocRepo.update({
-    doc_id: 3,
-    sentence: "I eat and I know things.",
-  });
+//   await esDocRepo.update({
+//     doc_id: 3,
+//     sentence: "I eat and I know things.",
+//   });
 
-  await esDocRepo.update({
-    doc_id: 3,
-    sentence: "I eat and I don't know things.",
-  });
-}
+//   await esDocRepo.update({
+//     doc_id: 3,
+//     sentence: "I eat and I don't know things.",
+//   });
+// }
 
-async function testSearch() {
-  const result = await esDocRepo.search("I drink and I don't know things.");
+// async function testSearch() {
+//   const result = await esDocRepo.search("I drink and I don't know things.");
 
-  logger.info(JSON.stringify(result, null, 2));
-}
+//   logger.info(JSON.stringify(result, null, 2));
+// }
 
-async function testAnalyzer() {
-  const tokenStats = await esDocRepo.analyze(
-    "I do drink and I don't know things. You go to work by bus.",
-    DocAnalyzer.Stop
-  );
+// async function testAnalyzer() {
+//   const tokenStats = await esDocRepo.analyze(
+//     "I do drink and I don't know things. You go to work by bus.",
+//     DocAnalyzer.Stop
+//   );
 
-  console.log(JSON.stringify(tokenStats, null, 2));
-}
+//   console.log(JSON.stringify(tokenStats, null, 2));
+// }

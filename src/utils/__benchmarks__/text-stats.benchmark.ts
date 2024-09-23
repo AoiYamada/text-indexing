@@ -13,10 +13,10 @@ suite
   .add("textStatsB", function () {
     textStatsB(sampleText);
   })
-  .on("cycle", function (event: any) {
+  .on("cycle", function (event: Benchmark.Event) {
     console.log(String(event.target));
   })
-  .on("complete", function () {
+  .on("complete", function (this: Benchmark.Suite) {
     console.log("Fastest is " + this.filter("fastest").map("name"));
   })
   .run({ async: false });
