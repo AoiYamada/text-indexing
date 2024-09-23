@@ -34,7 +34,7 @@ class CreateDocWorker {
 
       logger.info("All docs created!");
 
-      process.exit(0);
+    //   process.exit(0);
     });
   }
 }

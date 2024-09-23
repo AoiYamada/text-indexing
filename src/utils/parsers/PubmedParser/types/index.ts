@@ -90,11 +90,11 @@ type AffiliationInfo = {
 };
 
 type Abstract = {
-  AbstractText: AbstractText;
+  AbstractText: AbstractText | AbstractText[];
   CopyrightInformation: string;
 };
 
-type AbstractText =
+export type AbstractText =
   | string
   | {
       sub: int[];

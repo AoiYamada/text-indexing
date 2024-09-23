@@ -1,70 +1,49 @@
 import { int } from "../types/alias";
 
 type TextStats = {
-  charCount: int;
+  totalCharCount: int;
+  nonSpaceCharCount: int;
   wordCount: int;
   sentenceCount: int;
+  asciiCount: int;
+  nonAsciiCount: int;
+  spaceCount: int;
 };
-
-// naive implementation, because 2 splits are used, each with O(n) complexity
-function textStatsA(text: string): TextStats {
-  const trimmedText = text.trim();
-  const words = trimmedText.split(/\s+/);
-  let wordCount = words.length;
-
-  if (words[wordCount - 1] === "") {
-    wordCount--;
-  }
-
-  if (words.length > 1 && words[0] === "") {
-    wordCount--;
-  }
-
-  const sentences = trimmedText.split(/[.!?]/);
-  let sentenceCount = sentences.length;
-
-  if (sentences[sentenceCount - 1] === "") {
-    sentenceCount--;
-  }
-
-  if (sentences.length > 1 && sentences[0] === "") {
-    sentenceCount--;
-  }
-
-  return {
-    charCount: trimmedText.length,
-    wordCount,
-    sentenceCount,
-  };
-}
 
 // twice as fast as textStatsA, it's crucial for large texts
 function textStatsB(text: string): TextStats {
-  const trimmedText = text.trim();
-  let charCount = 0;
+  let totalCharCount = 0; // 包含空格的字符數
+  let nonSpaceCharCount = 0; // 不包含空格的字符數
   let wordCount = 0;
   let sentenceCount = 0;
+  let asciiCount = 0;
+  let nonAsciiCount = 0;
+  let spaceCount = 0; // 空白字符數量
   let inWord = false;
   let inSentence = false;
 
-  for (let i = 0; i < trimmedText.length; i++) {
-    charCount++;
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    totalCharCount++; // 每次迴圈都計算總字符數（包括空格）
 
-    if (
-      trimmedText[i] === " " ||
-      trimmedText[i] === "\t" ||
-      trimmedText[i] === "\n"
-    ) {
+    // 計算 ASCII 和 non-ASCII 字符
+    if (char.charCodeAt(0) <= 127) {
+      asciiCount++;
+    } else {
+      nonAsciiCount++;
+    }
+
+    // 處理空白字符：空格、tab、換行
+    if (char === " " || char === "\t" || char === "\n") {
+      spaceCount++; // 計算空白字符數量
       if (inWord) {
         wordCount++;
         inWord = false;
       }
-    } else if (
-      trimmedText[i] === "." ||
-      trimmedText[i] === "!" ||
-      trimmedText[i] === "?"
-    ) {
+    } else if (char === "." || char === "!" || char === "?") {
+      // 處理句子結尾標點符號
       sentenceCount++;
+      nonSpaceCharCount++; // 非空白字符計數
       inSentence = false;
 
       if (inWord) {
@@ -72,27 +51,39 @@ function textStatsB(text: string): TextStats {
         inWord = false;
       }
     } else {
+      // 其他情況，表示在句子內部
       if (!inSentence) {
         inSentence = true;
       }
 
       inWord = true;
+      nonSpaceCharCount++; // 非空白字符計數
     }
   }
 
-  // If the text ends with a word without trailing space
+  // 如果文本以單詞結尾，並且沒有空白字符來結束
   if (inWord) {
     wordCount++;
   }
 
+  // 如果文本以句子結尾，並且沒有標點符號來結束
   if (inSentence) {
     sentenceCount++;
   }
 
+  // 驗證 nonSpaceCharCount 是否等於 totalCharCount - spaceCount
+  if (nonSpaceCharCount !== totalCharCount - spaceCount) {
+    throw new Error("nonSpaceCharCount 計算有誤");
+  }
+
   return {
-    charCount,
-    wordCount,
-    sentenceCount,
+    totalCharCount, // 包括空白字符的總字符數
+    nonSpaceCharCount, // 不包括空白字符的字符數
+    wordCount, // 總單詞數
+    sentenceCount, // 總句子數
+    asciiCount, // ASCII 字符數
+    nonAsciiCount, // 非 ASCII 字符數
+    spaceCount, // 空白字符數量
   };
 }
 
@@ -100,4 +91,4 @@ const textStats = textStatsB;
 
 export default textStats;
 
-export { textStatsA, textStatsB };
+export { textStatsB };
