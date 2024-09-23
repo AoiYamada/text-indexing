@@ -26,13 +26,9 @@ class CreateDocService implements Service {
   ) {}
 
   async execute(payload: CreateDocPayload) {
-    const doc = await this.docRepo.create({
-      type: payload.type,
-    });
-
     switch (payload.type) {
       case DocType.pubmed:
-        await this.createPubmedDoc(doc.id, payload);
+        await this.createPubmedDoc(payload);
         break;
       // TODO: Implement createTwitterDoc
       // case DocType.twitter:
@@ -43,34 +39,21 @@ class CreateDocService implements Service {
     }
   }
 
-  private async createPubmedDoc(docId: int, payload: CreatePubmedPayload) {
+  private async createPubmedDoc(payload: CreatePubmedPayload) {
     const hashedContent = hash(payload.abstract);
-
-    // check if the content already exists
-    const metaData = await this.docMetaRepo.search(
-      (t) => eq(t.hash, hashedContent) // ideally, orm related code should be in the repository, refactor later
+    const isDuplicated = await this.isDuplicated(
+      payload.abstract,
+      hashedContent,
+      DocType.pubmed
     );
 
-    if (metaData.length > 0) {
-      // hash collision, now need to check the actual content
-
-      const pubmedArticles = await Promise.all(
-        metaData.map(async (meta) => this.pubmedRepo.getByDocId(meta.docId))
-      );
-
-      for (const pubmed of pubmedArticles) {
-        if (pubmed?.abstract === payload.abstract) {
-          // content already exists
-          logger.info(
-            `Doc with same content already exists, id[${docId}], content[${payload.abstract.slice(
-              0,
-              50
-            )}...]`
-          );
-          return;
-        }
-      }
+    if (isDuplicated) {
+      return;
     }
+
+    const { id: docId } = await this.docRepo.create({
+      type: payload.type,
+    });
 
     await Promise.all([
       this.updateStemStats(docId, DocType.pubmed, payload.abstract),
@@ -110,6 +93,48 @@ class CreateDocService implements Service {
         });
       })
     );
+  }
+
+  private async isDuplicated(
+    content: string,
+    hash: string,
+    type: DocType
+  ): Promise<boolean> {
+    // check if the content already exists
+    const metaData = await this.docMetaRepo.search(
+      (t) => eq(t.hash, hash) // ideally, orm related code should be in the repository, refactor later
+    );
+
+    if (metaData.length > 0) {
+      // hash collision, now need to check the actual content
+
+      switch (type) {
+        case DocType.pubmed: {
+          const articles = await Promise.all(
+            metaData.map(async (meta) => this.pubmedRepo.getByDocId(meta.docId))
+          );
+
+          for (const article of articles) {
+            if (article?.abstract === content) {
+              // content already exists
+              logger.info(
+                `Doc with same content already exists, content[${content.slice(
+                  0,
+                  50
+                )}...]`
+              );
+
+              return true;
+            }
+          }
+        }
+        case DocType.twitter: {
+          // TODO: Implement isDuplicated for Twitter
+        }
+      }
+    }
+
+    return false;
   }
 }
 

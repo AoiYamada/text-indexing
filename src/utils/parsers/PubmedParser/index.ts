@@ -20,8 +20,11 @@ class PubmedParser {
     const data: PubmedRawData = this._parser.parse(xml);
     let i = 0;
     const articles: Pubmed[] = [];
+    const rawArticles = Array.isArray(data.PubmedArticleSet.PubmedArticle)
+      ? data.PubmedArticleSet.PubmedArticle
+      : [data.PubmedArticleSet.PubmedArticle];
 
-    for (const article of data.PubmedArticleSet.PubmedArticle) {
+    for (const article of rawArticles) {
       if (count && i >= count) {
         break;
       }

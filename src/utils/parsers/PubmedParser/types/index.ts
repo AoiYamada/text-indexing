@@ -7,7 +7,7 @@ export type PubmedRawData = {
 };
 
 type PubmedArticleSet = {
-  PubmedArticle: PubmedArticle[];
+  PubmedArticle: PubmedArticle | PubmedArticle[];
 };
 
 type PubmedArticle = {
