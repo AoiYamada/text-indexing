@@ -14,7 +14,7 @@ class CreateDocWorker {
     private waitGroup: WaitGroup
   ) {}
 
-  start(cb?: () => void) {
+  start(done?: () => void) {
     this.emitter.on(CreateDocEvent.CreateDoc, (data: CreateDocPayload) => {
       this.waitGroup.add();
 
@@ -34,7 +34,7 @@ class CreateDocWorker {
 
       logger.info("All docs created!");
 
-      cb?.();
+      done?.();
     });
   }
 }

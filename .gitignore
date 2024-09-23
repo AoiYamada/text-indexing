@@ -44,5 +44,6 @@ db/*
 logs/*
 
 src/db/migrations/meta
+samples
 
 !**/.gitkeep

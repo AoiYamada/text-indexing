@@ -1,14 +1,17 @@
 "use client";
 
 import { useToast } from "@/hooks/use-toast";
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { set, useForm } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { Progress } from "../ui/progress";
 
-const SectionExample = () => {
+const UploadSection = () => {
   const { register, reset, handleSubmit } = useForm();
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const onSubmit = (data: any) => {
     // POST the files to /api/upload by using `fetch`
@@ -18,11 +21,30 @@ const SectionExample = () => {
       formData.append("files", file);
     });
 
+    setIsLoading(true);
+    setProgress(0);
+    const slowGrowth = setInterval(() => {
+      setProgress((prev) => {
+        console.log(prev);
+        if (prev >= 100) {
+          clearInterval(slowGrowth);
+          return 100;
+        }
+
+        // tends to 100 but never reaches it
+        return prev + (98 - prev) * 0.05;
+      });
+    }, 100);
+
     fetch("/api/upload", {
       method: "POST",
       body: formData,
     })
       .then((res) => {
+        setProgress(100);
+        clearInterval(slowGrowth);
+        setIsLoading(false);
+
         if (!res.ok) {
           throw new Error("Failed to upload the files");
         }
@@ -60,15 +82,22 @@ const SectionExample = () => {
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full flex-col items-start justify-center gap-16"
+        className="flex w-full flex-col items-start justify-center gap-8"
       >
         <Input type="file" multiple {...register("files")} />
-        <Button type="submit" className="btn btn-primary">
-          Upload
-        </Button>
+        <div className="flex flex-col justify-center gap-2">
+          <Button
+            type="submit"
+            className="btn btn-primary"
+            disabled={isLoading}
+          >
+            {isLoading ? "Uploading..." : "Upload"}
+          </Button>
+          {isLoading && <Progress value={progress} className="w-28" />}
+        </div>
       </form>
     </section>
   );
 };
 
-export default SectionExample;
+export default UploadSection;
