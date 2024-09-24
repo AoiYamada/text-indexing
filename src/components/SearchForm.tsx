@@ -1,9 +1,10 @@
 "use client";
 
 import { useToast } from "@/hooks/use-toast";
+import { SearchResponse } from "@/app/api/search/route";
+import config from "@/configs";
 import { useCallback, useState } from "react";
 import SearchBar from "./SearchBar";
-import { SearchResponse } from "@/app/api/search/route";
 
 const SearchForm = () => {
   const [
@@ -30,7 +31,7 @@ const SearchForm = () => {
       }
 
       setLoading(true);
-      fetch(`http://localhost:3000/api/search?q=${value}&page=${page}`).then(
+      fetch(`${config.app.apiUrl}/search?q=${value}&page=${page}`).then(
         async (resp) => {
           setLoading(false);
           const data = await resp.json();
