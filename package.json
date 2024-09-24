@@ -27,6 +27,7 @@
     "@radix-ui/react-progress": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
+    "@radix-ui/react-tooltip": "^1.1.2",
     "@visx/responsive": "^3.10.2",
     "@visx/scale": "^3.5.0",
     "@visx/text": "^3.3.0",

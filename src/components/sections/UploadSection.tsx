@@ -88,9 +88,14 @@ const UploadSection = () => {
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full flex-col items-start justify-center gap-8"
+        className="flex w-full flex-row items-start justify-center gap-8"
       >
-        <Input type="file" multiple {...register("files")} />
+        <Input
+          type="file"
+          multiple
+          {...register("files")}
+          className="w-[300px]"
+        />
         <div className="flex flex-col justify-center gap-2">
           <Button
             type="submit"

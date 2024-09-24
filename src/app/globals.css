@@ -76,3 +76,9 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+em {
+  font-weight: bold;
+  font-style: italic;
+  color: #ff0000;
+}
