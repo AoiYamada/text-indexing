@@ -51,7 +51,7 @@ const SearchForm = () => {
 
   return (
     <div className="w-full flex flex-col justify-center gap-8">
-      <div className="z-10 max-w-[40rem] transition-all w-[11rem] md:w-[20rem] mx-auto">
+      <div className="z-10 w-[40rem] mx-auto">
         <SearchBar onSearch={handleSearch} />
       </div>
       <div>
