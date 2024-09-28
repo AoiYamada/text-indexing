@@ -26,7 +26,6 @@ const UploadSection = () => {
     setProgress(0);
     const slowGrowth = setInterval(() => {
       setProgress((prev) => {
-        console.log(prev);
         if (prev >= 100) {
           clearInterval(slowGrowth);
           return 100;

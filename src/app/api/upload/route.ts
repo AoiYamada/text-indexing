@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     if (typeof file === "string") continue;
 
     if (
-      (file.type !== "application/xml" && file.type !== "application/json") ||
+      (file.type !== "text/xml" && file.type !== "application/json") ||
       !file.name.match(/^[a-zA-Z0-9-_]+\.(xml|json)$/)
     ) {
       return NextResponse.json(
