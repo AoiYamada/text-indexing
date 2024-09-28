@@ -1,4 +1,4 @@
-import { desc, eq, sql, SQL, sum } from "drizzle-orm";
+import { desc, eq, SQL, sum } from "drizzle-orm";
 import {
   SQLiteInsertValue,
   SQLiteUpdateSetSource,

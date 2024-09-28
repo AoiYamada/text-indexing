@@ -3,7 +3,7 @@ import StemDocStatsRepository from "@/repositories/db/StemDocStatsRepository";
 
 const limit = 50;
 
-class StatsService implements Service {
+class GetStatsService implements Service {
   constructor(private stemDocStatsRepo: StemDocStatsRepository) {}
 
   async execute(page: number) {
@@ -15,4 +15,4 @@ class StatsService implements Service {
   }
 }
 
-export default StatsService;
+export default GetStatsService;

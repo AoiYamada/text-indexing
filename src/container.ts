@@ -15,7 +15,7 @@ import CreateDocService from "./services/CreateDocService";
 import EnsureEsDocIndxService from "./services/EnsureEsDocIndxService";
 import ResetDocService from "./services/ResetDocService";
 import SearchDocService from "./services/SearchDocService";
-import StatsService from "./services/StatsService";
+import GetStatsService from "./services/GetStatsService";
 import WaitGroup from "./utils/wait-group";
 import CreateDocWorker from "./workers/CreateDocWorker";
 
@@ -44,7 +44,7 @@ export const createDocService = new CreateDocService(
   stemDocStatsRepo,
   esDocRepo
 );
-export const statsService = new StatsService(stemDocStatsRepo);
+export const statsService = new GetStatsService(stemDocStatsRepo);
 export const searchDocService = new SearchDocService(esDocRepo);
 
 export const createDocEmitter = new CreateDocEmitter();
