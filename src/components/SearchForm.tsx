@@ -2,9 +2,9 @@
 
 import { useToast } from "@/hooks/use-toast";
 import { SearchResponse } from "@/app/api/search/route";
-import config from "@/configs";
 import { useCallback, useState } from "react";
 import SearchBar from "./SearchBar";
+import frontendConfig from "@/configs/frontend-config";
 
 const SearchForm = () => {
   const [
@@ -31,7 +31,7 @@ const SearchForm = () => {
       }
 
       setLoading(true);
-      fetch(`${config.app.apiUrl}/search?q=${value}&page=${page}`).then(
+      fetch(`${frontendConfig.apiUrl}/search?q=${value}&page=${page}`).then(
         async (resp) => {
           setLoading(false);
           const data = await resp.json();

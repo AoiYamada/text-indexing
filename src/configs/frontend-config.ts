@@ -2,10 +2,10 @@ import * as env from "env-var";
 
 const hostUrl = env.get("NEXT_PUBLIC_HOST_URL").asString();
 
-const appConfig = {
+const frontendConfig = {
   hostUrl,
   apiUrl: `${hostUrl}/api`,
   appName: "My App",
 };
 
-export default appConfig;
+export default frontendConfig;

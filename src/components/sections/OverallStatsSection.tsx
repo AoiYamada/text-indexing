@@ -1,10 +1,10 @@
 import React from "react";
 import { StatsResponse } from "@/app/api/stats/route";
-import config from "@/configs";
 import WordCloud from "../WordCloud";
+import frontendConfig from "@/configs/frontend-config";
 
 const OverallStatsSection = async () => {
-  const data = await fetch(`${config.app.apiUrl}/stats?page=1`);
+  const data = await fetch(`${frontendConfig.apiUrl}/stats?page=1`);
   const stats: StatsResponse = await data.json();
 
   return (
