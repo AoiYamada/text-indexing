@@ -16,6 +16,7 @@ class ResetDocService implements Service {
       schema.pubmed,
       schema.twitter,
       schema.doc,
+      schema.file,
       schema.stem,
     ]).forEach((table) => this.db.run(sql`DROP TABLE IF EXISTS ${table}`));
 

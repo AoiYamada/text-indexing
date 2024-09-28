@@ -1,6 +1,8 @@
 CREATE TABLE `doc` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`type` text NOT NULL
+	`type` text NOT NULL,
+	`file_id` integer NOT NULL,
+	FOREIGN KEY (`file_id`) REFERENCES `file`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE TABLE `doc_meta` (
@@ -15,6 +17,12 @@ CREATE TABLE `doc_meta` (
 	`non_ascii_count` integer NOT NULL,
 	`space_count` integer NOT NULL,
 	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
+CREATE TABLE `file` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`filename` text NOT NULL,
+	`created_at` integer DEFAULT (current_timestamp) NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `pubmed` (
@@ -47,6 +55,7 @@ CREATE TABLE `twitter` (
 	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
+CREATE INDEX `doc_file_id_idx` ON `doc` (`file_id`);--> statement-breakpoint
 CREATE INDEX `doc_type_idx` ON `doc` (`type`);--> statement-breakpoint
 CREATE UNIQUE INDEX `doc_meta_doc_id_idx` ON `doc_meta` (`doc_id`);--> statement-breakpoint
 CREATE INDEX `doc_meta_hash_idx` ON `doc_meta` (`hash`);--> statement-breakpoint

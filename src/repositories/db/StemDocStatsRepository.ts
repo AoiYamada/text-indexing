@@ -5,7 +5,7 @@ import {
 } from "drizzle-orm/sqlite-core";
 import { GetSelectTableSelection } from "drizzle-orm/query-builders/select.types";
 import { DbClient } from "../../db";
-import { StemDocStatsTable } from "../../db/schema/stemDocStats";
+import { StemDocStatsTable } from "../../db/schema/stem-doc-stats";
 import { int } from "../../types/alias";
 import { StemTable } from "@/db/schema/stem";
 
