@@ -53,6 +53,7 @@ class CreateDocService implements Service {
 
     const { id: docId } = await this.docRepo.create({
       type: payload.type,
+      fileId: payload.fileId,
     });
 
     await Promise.all([
@@ -144,11 +145,13 @@ export type CreateDocPayload = CreatePubmedPayload | CreateTwitterPayload;
 
 type CreatePubmedPayload = {
   type: DocType.pubmed;
+  fileId: int;
   title: string;
   abstract: string;
 };
 
 type CreateTwitterPayload = {
   type: DocType.twitter;
+  fileId: int;
   content: string;
 };

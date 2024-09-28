@@ -15,11 +15,11 @@ class CreateDocWorker {
   ) {}
 
   start(done?: () => void) {
-    this.emitter.on(CreateDocEvent.CreateDoc, (data: CreateDocPayload) => {
+    this.emitter.on(CreateDocEvent.CreateDoc, (payload: CreateDocPayload) => {
       this.waitGroup.add();
 
       this.createDocService
-        .execute(data)
+        .execute(payload)
         .then(() => {
           this.waitGroup.done();
         })
