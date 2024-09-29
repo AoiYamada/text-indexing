@@ -1,7 +1,7 @@
-import React from "react";
-import { StatsResponse } from "@/app/api/stats/route";
-import WordCloud from "../WordCloud";
 import frontendConfig from "@/configs/frontend-config";
+import { StatsResponse } from "@/app/api/stats/_types";
+import React from "react";
+import WordCloud from "../WordCloud";
 
 const OverallStatsSection = async () => {
   const data = await fetch(`${frontendConfig.apiUrl}/stats?page=1`);
@@ -9,8 +9,9 @@ const OverallStatsSection = async () => {
 
   return (
     <section className="w-full flex flex-col items-center justify-center gap-12">
-      <h1 className="flex flex-col items-center justify-center text-3xl font-semibold sm:flex-row sm:text-4xl lg:text-5xl">
-        OverallStatsSection
+      <h1 className="flex flex-col items-center justify-center text-xl font-semibold sm:flex-row sm:text-2xl lg:text-3xl">
+        {" "}
+        Overall Stats
       </h1>
       {stats.length === 0 ? (
         <div>

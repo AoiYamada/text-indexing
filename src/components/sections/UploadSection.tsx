@@ -82,8 +82,8 @@ const UploadSection = () => {
       className="w-full flex flex-col items-center justify-center gap-12"
       id="contact-us"
     >
-      <h1 className="flex flex-col items-center justify-center text-3xl font-semibold sm:flex-row sm:text-4xl lg:text-5xl">
-        Upload Hw Xml files
+      <h1 className="flex flex-col items-center justify-center text-xl font-semibold sm:flex-row sm:text-2xl lg:text-3xl">
+        Upload test files
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}

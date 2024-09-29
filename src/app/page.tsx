@@ -5,10 +5,14 @@ import UploadSection from "@/components/sections/UploadSection";
 
 export default function Home() {
   return (
-    <MaxWidthWrapper className="flex flex-col items-center justify-center gap-16">
-      <OverallStatsSection />
-      <UploadSection />
-      <SearchSection />
+    <MaxWidthWrapper className="flex flex-col xl:flex-row items-center xl:items-start justify-center gap-16">
+      <div className="flex flex-col items-start justify-start gap-12">
+        <UploadSection />
+        <OverallStatsSection />
+      </div>
+      <div>
+        <SearchSection />
+      </div>
     </MaxWidthWrapper>
   );
 }

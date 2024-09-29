@@ -1,6 +1,5 @@
-import * as env from "env-var";
-
-const hostUrl = env.get("NEXT_PUBLIC_HOST_URL").asString();
+// don't us "env-var" here, frontend doesn't have access to the environment variables
+const hostUrl = process.env.NEXT_PUBLIC_HOST_URL;
 
 const frontendConfig = {
   hostUrl,

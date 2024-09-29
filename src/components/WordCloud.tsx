@@ -7,7 +7,7 @@ import { Text } from "@visx/text";
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
 import { scaleLog } from "@visx/scale";
 import { Wordcloud as VisxWordCloud } from "@visx/wordcloud";
-import { StatsItem } from "@/app/api/stats/route";
+import { StatsItem } from "@/app/api/stats/_types";
 
 type WordCloudProps = {
   data: StatsItem[];
