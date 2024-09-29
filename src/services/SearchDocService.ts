@@ -1,5 +1,6 @@
 // import DocRepository from "@/repositories/db/DocRepository";
 import EsDocRepository from "@/repositories/elasticsearch/EsDocRepository";
+import { int } from "@/types/alias";
 import Service from "./interfaces/Service";
 // import { inArray } from "drizzle-orm";
 // import DocType from "@/constants/DocType";
@@ -13,7 +14,7 @@ class SearchDocService implements Service {
     private esDocRepo: EsDocRepository
   ) {}
 
-  async execute(query: string, page: number) {
+  async execute(query: string, page: int) {
     const offset = (page - 1) * limit;
     const esDocs = await this.esDocRepo.search(query, {
       from: offset,
