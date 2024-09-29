@@ -34,6 +34,15 @@ class DocRepository {
     return doc;
   }
 
+  async getByFileId(fileId: int) {
+    const [doc] = await this.db
+      .select()
+      .from(this.table)
+      .where(eq(this.table.fileId, fileId));
+
+    return doc;
+  }
+
   async update(id: int, data: UpdateDoc) {
     const [doc] = await this.db
       .update(this.table)

@@ -187,9 +187,9 @@ class EsDocRepository {
     };
   }
 
-  async delete(document: Pick<EsDoc, "doc_id">) {
+  async delete(docId: int) {
     await this.client.delete({
-      id: esDocToId(document),
+      id: esDocToId({ doc_id: docId }),
       index: this.index,
     });
   }
