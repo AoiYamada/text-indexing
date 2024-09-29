@@ -5,8 +5,7 @@ import * as schema from "./schema";
 
 // Initialize the SQLite database
 const sqlite = new Database(config.databases.db);
-// This one is not working
-// ref: https://github.com/drizzle-team/drizzle-orm/issues/1813
+// Seems doesn't need this
 // sqlite.pragma("foreign_keys = ON");
 
 // Create the Drizzle ORM instance

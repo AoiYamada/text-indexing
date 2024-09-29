@@ -22,7 +22,7 @@ CREATE TABLE `doc_meta` (
 CREATE TABLE `file` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`filename` text NOT NULL,
-	`created_at` integer DEFAULT (current_timestamp) NOT NULL
+	`timestamp` text DEFAULT (current_timestamp) NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `pubmed` (

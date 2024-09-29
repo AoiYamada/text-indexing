@@ -18,7 +18,7 @@ export async function DELETE(
 
   await deleteFileService.execute(id);
 
-  return NextResponse.json(undefined, { status: 200 });
+  return NextResponse.json(undefined);
 }
 
 const DeleteFileParamsParser = z.object({

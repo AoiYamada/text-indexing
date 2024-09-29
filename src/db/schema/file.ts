@@ -4,7 +4,7 @@ import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 const file = sqliteTable("file", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   filename: text("filename").notNull(),
-  createdAt: integer("created_at", { mode: "timestamp" })
+  createdAt: text("timestamp")
     .notNull()
     .default(sql`(current_timestamp)`),
 });

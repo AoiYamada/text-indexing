@@ -9,7 +9,7 @@ class SearchFileService {
     options: SearchFileOptions = {}
   ) {
     const limit = options.size || 20;
-    const offset = (options.page || 1 - 1) * limit;
+    const offset = ((options.page || 1) - 1) * limit;
 
     const [files, total] = await Promise.all([
       this.fileRepo.search(query, {
@@ -30,7 +30,7 @@ class SearchFileService {
 export default SearchFileService;
 
 type SearchFileQuery = {
-  filename: string;
+  filename?: string;
 };
 
 type SearchFileOptions = {

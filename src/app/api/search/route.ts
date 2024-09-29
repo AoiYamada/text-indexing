@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   const rawQuery = request.nextUrl.searchParams.get("q");
   const rawPage = request.nextUrl.searchParams.get("page");
 
-  const parsedQuery = QueryParser.safeParse(rawQuery);
+  const parsedQuery = GetStatsQueryParser.safeParse(rawQuery);
 
   if (!parsedQuery.success) {
     return NextResponse.json(
@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
   return NextResponse.json(SearchResponseParser.parse(result));
 }
 
-const QueryParser = z.string().default("");
+const GetStatsQueryParser = z.string().default("");
 
 const SearchResponseParser = z.object({
   items: z.array(
