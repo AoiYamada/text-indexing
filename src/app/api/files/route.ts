@@ -1,6 +1,7 @@
 import { searchFileService } from "@/container";
 import { NextRequest, NextResponse } from "next/server";
 import { SearchFileQueryParser, SearchFileResponseParser } from "./_types";
+import logger from "@/logger";
 
 export async function GET(request: NextRequest) {
   const rawFilename = request.nextUrl.searchParams.get("filename");
@@ -20,9 +21,11 @@ export async function GET(request: NextRequest) {
   });
 
   if (!parsedQuery.success) {
+    logger.error(`Invalid query string: ${parsedQuery.error.message}`);
+
     return NextResponse.json(
       {
-        message: `Invalid query string: ${JSON.stringify(parsedQuery.error)}`,
+        message: `Invalid query string`,
       },
       { status: 400 }
     );

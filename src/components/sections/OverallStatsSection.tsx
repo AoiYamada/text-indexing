@@ -10,7 +10,6 @@ const OverallStatsSection = async () => {
   return (
     <section className="w-full flex flex-col items-center justify-center gap-12">
       <h1 className="flex flex-col items-center justify-center text-xl font-semibold sm:flex-row sm:text-2xl lg:text-3xl">
-        {" "}
         Overall Stats
       </h1>
       {stats.length === 0 ? (

@@ -80,7 +80,7 @@ class CreateDocService implements Service {
   // TODO: Implement createTwitterDoc
 
   private async updateStemStats(docId: int, docType: DocType, text: string) {
-    const stemStats = await this.esDocRepo.analyze(text, DocAnalyzer.Default);
+    const stemStats = await this.esDocRepo.analyze(text, DocAnalyzer.Stop);
 
     await Promise.all(
       stemStats.map(async (stat) => {
