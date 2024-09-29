@@ -2,7 +2,7 @@ CREATE TABLE `doc` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`type` text NOT NULL,
 	`file_id` integer NOT NULL,
-	FOREIGN KEY (`file_id`) REFERENCES `file`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`file_id`) REFERENCES `file`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `doc_meta` (
@@ -16,7 +16,7 @@ CREATE TABLE `doc_meta` (
 	`ascii_count` integer NOT NULL,
 	`non_ascii_count` integer NOT NULL,
 	`space_count` integer NOT NULL,
-	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `file` (
@@ -30,7 +30,7 @@ CREATE TABLE `pubmed` (
 	`doc_id` integer NOT NULL,
 	`title` text NOT NULL,
 	`abstract` text NOT NULL,
-	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `stem` (
@@ -44,15 +44,15 @@ CREATE TABLE `stem_doc_stats` (
 	`doc_id` integer NOT NULL,
 	`doc_type` text NOT NULL,
 	`count` integer NOT NULL,
-	FOREIGN KEY (`stem_id`) REFERENCES `stem`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`stem_id`) REFERENCES `stem`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `twitter` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`doc_id` integer NOT NULL,
 	`content` text NOT NULL,
-	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE INDEX `doc_file_id_idx` ON `doc` (`file_id`);--> statement-breakpoint

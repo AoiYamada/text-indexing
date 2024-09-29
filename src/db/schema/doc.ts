@@ -10,7 +10,7 @@ const doc = sqliteTable(
       enum: DocTypeValues,
     }).notNull(),
     fileId: integer("file_id")
-      .references(() => file.id)
+      .references(() => file.id, { onDelete: "cascade" })
       .notNull(),
 
     // Just for reference, you can add these fields if needed

@@ -17,6 +17,8 @@ import ResetDocService from "./services/ResetDocService";
 import SearchDocService from "./services/SearchDocService";
 import GetStatsService from "./services/GetStatsService";
 import CreateFileService from "./services/CreateFileService";
+import DeleteFileService from "./services/DeleteFileService";
+import SearchFileService from "./services/SearchFileService";
 import WaitGroup from "./utils/wait-group";
 import CreateDocWorker from "./workers/CreateDocWorker";
 import FileRepository from "./repositories/db/FileRepository";
@@ -51,6 +53,12 @@ export const createDocService = new CreateDocService(
 export const statsService = new GetStatsService(stemDocStatsRepo);
 export const searchDocService = new SearchDocService(esDocRepo);
 export const createFileService = new CreateFileService(fileRepo);
+export const deleteFileService = new DeleteFileService(
+  fileRepo,
+  docRepo,
+  esDocRepo
+);
+export const searchFileService = new SearchFileService(fileRepo);
 
 export const createDocEmitter = new CreateDocEmitter();
 export const createDocWorker = new CreateDocWorker(

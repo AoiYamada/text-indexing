@@ -9,10 +9,10 @@ const stemDocStats = sqliteTable(
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
     stemId: integer("stem_id")
-      .references(() => stem.id)
+      .references(() => stem.id, { onDelete: "cascade" })
       .notNull(),
     docId: integer("doc_id")
-      .references(() => doc.id)
+      .references(() => doc.id, { onDelete: "cascade" })
       .notNull(),
     docType: text("doc_type", {
       enum: DocTypeValues,

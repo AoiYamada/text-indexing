@@ -11,7 +11,7 @@ const twitter = sqliteTable(
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
     docId: integer("doc_id")
-      .references(() => doc.id)
+      .references(() => doc.id, { onDelete: "cascade" })
       .notNull(),
     content: text("content").notNull(),
   },

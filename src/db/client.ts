@@ -5,8 +5,9 @@ import * as schema from "./schema";
 
 // Initialize the SQLite database
 const sqlite = new Database(config.databases.db);
-// Enable CASCADE foreign key support
-sqlite.pragma("foreign_keys = ON");
+// This one is not working
+// ref: https://github.com/drizzle-team/drizzle-orm/issues/1813
+// sqlite.pragma("foreign_keys = ON");
 
 // Create the Drizzle ORM instance
 const db = drizzle(sqlite, {

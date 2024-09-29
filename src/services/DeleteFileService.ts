@@ -21,6 +21,8 @@ class DeleteFileService implements Service {
       this.esDocRepo.delete(doc.id),
     ]);
 
+    await this.esDocRepo.refresh();
+
     return;
   }
 }
