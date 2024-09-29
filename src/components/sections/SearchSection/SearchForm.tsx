@@ -2,9 +2,9 @@
 
 import { useToast } from "@/hooks/use-toast";
 import { SearchResponse } from "@/app/api/search/route";
-import { useCallback, useState } from "react";
-import SearchBar from "./SearchBar";
+import SearchBar from "@/components/SearchBar";
 import frontendConfig from "@/configs/frontend-config";
+import { useCallback, useState } from "react";
 
 const SearchForm = () => {
   const [
@@ -61,12 +61,15 @@ const SearchForm = () => {
         ) : result.items.length === 0 ? (
           <p>No results</p>
         ) : (
-          <ul>
+          <ul className=" list-none p-0">
             {result.items.map((item) => (
-              <li key={item.id}>
+              <li
+                key={item.id}
+                className="border-[#ccc] border-solid border rounded-lg p-4 mb-4"
+              >
                 <div>
                   <div>
-                    Doc type: <span>{item.type}</span>
+                    Doc type: <span className="font-medium">{item.type}</span>
                   </div>
                   <div>
                     Matched text:
@@ -74,6 +77,7 @@ const SearchForm = () => {
                       <p
                         key={sentence}
                         dangerouslySetInnerHTML={{ __html: sentence }}
+                        className="m-0"
                       />
                     ))}
                   </div>
@@ -83,29 +87,6 @@ const SearchForm = () => {
           </ul>
         )}
       </div>
-      <style jsx>
-        {`
-          ul {
-            list-style: none;
-            padding: 0;
-          }
-
-          li {
-            border: 1px solid #ccc;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-            padding: 1rem;
-          }
-
-          p {
-            margin: 0;
-          }
-
-          span {
-            font-weight: bold;
-          }
-        `}
-      </style>
     </div>
   );
 };
