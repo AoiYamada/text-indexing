@@ -1,7 +1,7 @@
 import DocType from "@/constants/DocType";
 import { z } from "zod";
 
-export const StatsResponseParser = z.array(
+export const GetStatsResponseParser = z.array(
   z.object({
     id: z.number(),
     docType: z.enum([DocType.pubmed, DocType.twitter]),
@@ -10,5 +10,5 @@ export const StatsResponseParser = z.array(
   })
 );
 
-export type StatsResponse = z.infer<typeof StatsResponseParser>;
-export type StatsItem = StatsResponse[number];
+export type GetStatsResponse = z.infer<typeof GetStatsResponseParser>;
+export type StatsItem = GetStatsResponse[number];

@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     filename: rawFilename,
     page: rawPage,
     size: rawSize,
-    orderBy: rawOrderBy,
+    orderBy: rawOrderBy.length > 0 ? rawOrderBy : null,
   });
 
   if (!parsedQuery.success) {

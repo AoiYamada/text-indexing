@@ -1,7 +1,7 @@
 import { statsService } from "@/container";
 import PageParser from "@/types/Page";
 import { NextRequest, NextResponse } from "next/server";
-import { StatsResponseParser } from "./_types";
+import { GetStatsResponseParser } from "./_types";
 
 export async function GET(request: NextRequest) {
   const rawPage = request.nextUrl.searchParams.get("page");
@@ -19,5 +19,5 @@ export async function GET(request: NextRequest) {
 
   const stats = await statsService.execute(page);
 
-  return NextResponse.json(StatsResponseParser.parse(stats));
+  return NextResponse.json(GetStatsResponseParser.parse(stats));
 }
