@@ -69,6 +69,9 @@ const SearchForm = () => {
               >
                 <div>
                   <div>
+                    Filename: <span className="font-medium">{item.filename}</span>
+                  </div>
+                  <div>
                     Doc type: <span className="font-medium">{item.type}</span>
                   </div>
                   <div>

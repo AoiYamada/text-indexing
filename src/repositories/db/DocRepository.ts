@@ -1,15 +1,19 @@
-import { eq, SQL } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import {
   SQLiteInsertValue,
   SQLiteUpdateSetSource,
 } from "drizzle-orm/sqlite-core";
-import { GetSelectTableSelection } from "drizzle-orm/query-builders/select.types";
 import { DbClient } from "../../db";
 import { DocTable } from "../../db/schema/doc";
+import { FileTable } from "../../db/schema/file";
 import { int } from "../../types/alias";
 
 class DocRepository {
-  constructor(private db: DbClient, private table: DocTable) {}
+  constructor(
+    private db: DbClient,
+    private table: DocTable,
+    private fileTable: FileTable
+  ) {}
 
   async create(value: InsertDoc) {
     const [doc] = await this.db.insert(this.table).values(value).returning();
@@ -21,8 +25,19 @@ class DocRepository {
     return this.db.insert(this.table).values(values).returning();
   }
 
-  async search(filter: Filter) {
-    return this.db.select().from(this.table).where(filter);
+  async search(filter: {
+    ids?: int[];
+    // type?: DocType; fileIds?: int[]
+  }) {
+    return this.db
+      .select({
+        id: this.table.id,
+        type: this.table.type,
+        filename: this.fileTable.filename,
+      })
+      .from(this.table)
+      .leftJoin(this.fileTable, eq(this.table.fileId, this.fileTable.id))
+      .where(filter.ids ? inArray(this.table.id, filter.ids) : undefined);
   }
 
   async getById(id: int) {
@@ -62,7 +77,3 @@ export default DocRepository;
 
 type InsertDoc = SQLiteInsertValue<DocTable>;
 type UpdateDoc = SQLiteUpdateSetSource<DocTable>;
-type Filter =
-  | ((aliases: GetSelectTableSelection<DocTable>) => SQL | undefined)
-  | SQL
-  | undefined;

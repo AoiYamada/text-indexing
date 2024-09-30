@@ -27,7 +27,7 @@ import FileRepository from "./repositories/db/FileRepository";
 export const esDocRepo = new EsDocRepository(es, EsIndex.Doc);
 
 // SQLite Repositories
-export const docRepo = new DocRepository(db, schema.doc);
+export const docRepo = new DocRepository(db, schema.doc, schema.file);
 export const docMetaRepo = new DocMetaRepository(db, schema.docMeta);
 export const fileRepo = new FileRepository(db, schema.file);
 export const stemRepo = new StemRepository(db, schema.stem);
@@ -51,7 +51,7 @@ export const createDocService = new CreateDocService(
   esDocRepo
 );
 export const statsService = new GetStatsService(stemDocStatsRepo);
-export const searchDocService = new SearchDocService(esDocRepo);
+export const searchDocService = new SearchDocService(docRepo, esDocRepo);
 export const createFileService = new CreateFileService(fileRepo);
 export const deleteFileService = new DeleteFileService(
   fileRepo,

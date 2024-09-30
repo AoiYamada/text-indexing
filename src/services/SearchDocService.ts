@@ -1,8 +1,7 @@
-// import DocRepository from "@/repositories/db/DocRepository";
+import DocRepository from "@/repositories/db/DocRepository";
 import EsDocRepository from "@/repositories/elasticsearch/EsDocRepository";
 import { int } from "@/types/alias";
 import Service from "./interfaces/Service";
-// import { inArray } from "drizzle-orm";
 // import DocType from "@/constants/DocType";
 // import { z } from "zod";
 
@@ -10,7 +9,7 @@ const limit = 20;
 
 class SearchDocService implements Service {
   constructor(
-    // private docRepo: DocRepository,
+    private docRepo: DocRepository,
     private esDocRepo: EsDocRepository
   ) {}
 
@@ -23,36 +22,43 @@ class SearchDocService implements Service {
 
     // TODO: retrieve more info from sql db, I've no time to finish this
 
-    // const docIds = esDocs.items.map((doc) => doc.doc_id);
+    // console.log(JSON.stringify(esDocs, null, 2))
+    const docIds = esDocs.items.map((doc) => doc.doc_id);
+    // console.log(docIds);
 
-    // const dbDocs = await this.docRepo.search((table) =>
-    //   inArray(table.id, docIds)
-    // );
+    const dbDocs = await this.docRepo.search({ ids: docIds });
 
-    // // docs map for faster lookup
-    // const docsMap = dbDocs.reduce((acc, doc) => {
-    //   acc[doc.id] = DbDocParser.parse(doc);
+    // docs map for faster lookup
+    const docsMap = dbDocs.reduce(
+      (acc, doc) => {
+        acc[doc.id] = doc;
 
-    //   return acc;
-    // }, {} as Record<number, DbDoc>);
+        return acc;
+      },
+      {} as Record<
+        number,
+        {
+          id: number;
+          type: string;
+          filename: string | null;
+        }
+      >
+    );
 
-    // const result = esDocs.items.map((esDoc) => {
-    //   const dbDoc = docsMap[esDoc.doc_id];
+    const items = esDocs.items.map((esDoc) => {
+      // lookup from map
+      const dbDoc = docsMap[esDoc.doc_id];
 
-    //   return {
-    //     id: esDoc.doc_id,
-    //     type: dbDoc.type,
-    //   };
-    // });
-
-    return {
-      items: esDocs.items.map((esDoc) => ({
+      return {
         id: esDoc.doc_id,
         type: esDoc.doc_type,
+        filename: dbDoc.filename ?? "",
         sentences: esDoc.sentences,
-        // more info here
-        // TODO...
-      })),
+      };
+    });
+
+    return {
+      items,
       total: esDocs.total,
     };
   }
