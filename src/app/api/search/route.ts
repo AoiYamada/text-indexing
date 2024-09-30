@@ -40,6 +40,7 @@ const SearchResponseParser = z.object({
     z.object({
       id: z.number(),
       type: z.enum([DocType.pubmed, DocType.twitter]),
+      filename: z.string(),
       sentences: z.array(z.string()),
     })
   ),
