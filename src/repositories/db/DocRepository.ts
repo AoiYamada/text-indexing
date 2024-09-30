@@ -7,6 +7,7 @@ import { DbClient } from "../../db";
 import { DocTable } from "../../db/schema/doc";
 import { FileTable } from "../../db/schema/file";
 import { int } from "../../types/alias";
+import { z } from "zod";
 
 class DocRepository {
   constructor(
@@ -29,15 +30,17 @@ class DocRepository {
     ids?: int[];
     // type?: DocType; fileIds?: int[]
   }) {
-    return this.db
-      .select({
-        id: this.table.id,
-        type: this.table.type,
-        filename: this.fileTable.filename,
-      })
-      .from(this.table)
-      .leftJoin(this.fileTable, eq(this.table.fileId, this.fileTable.id))
-      .where(filter.ids ? inArray(this.table.id, filter.ids) : undefined);
+    return DbDocsParser.parse(
+      await this.db
+        .select({
+          id: this.table.id,
+          type: this.table.type,
+          filename: this.fileTable.filename,
+        })
+        .from(this.table)
+        .leftJoin(this.fileTable, eq(this.table.fileId, this.fileTable.id))
+        .where(filter.ids ? inArray(this.table.id, filter.ids) : undefined)
+    );
   }
 
   async getById(id: int) {
@@ -77,3 +80,13 @@ export default DocRepository;
 
 type InsertDoc = SQLiteInsertValue<DocTable>;
 type UpdateDoc = SQLiteUpdateSetSource<DocTable>;
+
+const DbDocParser = z.object({
+  id: z.number(),
+  type: z.string(),
+  filename: z.string().default(""),
+});
+
+const DbDocsParser = z.array(DbDocParser);
+
+export type DbDoc = z.infer<typeof DbDocParser>;

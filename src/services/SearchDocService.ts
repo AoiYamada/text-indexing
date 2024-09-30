@@ -1,9 +1,7 @@
-import DocRepository from "@/repositories/db/DocRepository";
+import DocRepository, { DbDoc } from "@/repositories/db/DocRepository";
 import EsDocRepository from "@/repositories/elasticsearch/EsDocRepository";
 import { int } from "@/types/alias";
 import Service from "./interfaces/Service";
-// import DocType from "@/constants/DocType";
-// import { z } from "zod";
 
 const limit = 20;
 
@@ -20,30 +18,15 @@ class SearchDocService implements Service {
       size: limit,
     });
 
-    // TODO: retrieve more info from sql db, I've no time to finish this
-
-    // console.log(JSON.stringify(esDocs, null, 2))
     const docIds = esDocs.items.map((doc) => doc.doc_id);
-    // console.log(docIds);
-
     const dbDocs = await this.docRepo.search({ ids: docIds });
 
     // docs map for faster lookup
-    const docsMap = dbDocs.reduce(
-      (acc, doc) => {
-        acc[doc.id] = doc;
+    const docsMap = dbDocs.reduce((acc, doc) => {
+      acc[doc.id] = doc;
 
-        return acc;
-      },
-      {} as Record<
-        number,
-        {
-          id: number;
-          type: string;
-          filename: string | null;
-        }
-      >
-    );
+      return acc;
+    }, {} as Record<number, DbDoc>);
 
     const items = esDocs.items.map((esDoc) => {
       // lookup from map
@@ -52,7 +35,7 @@ class SearchDocService implements Service {
       return {
         id: esDoc.doc_id,
         type: esDoc.doc_type,
-        filename: dbDoc.filename ?? "",
+        filename: dbDoc.filename,
         sentences: esDoc.sentences,
       };
     });
