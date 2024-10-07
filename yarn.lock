@@ -431,6 +431,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@drizzle-team/brocli@npm:^0.10.1":
+  version: 0.10.1
+  resolution: "@drizzle-team/brocli@npm:0.10.1"
+  checksum: 10c0/64a1678a5a5cf4a16f955175fd6f9df8ff61e5de24473d5c7efa699e8145a54574584bd22f8036c77d0d35666ff97f11a5b006191ca40f5d3deb0006258cd806
+  languageName: node
+  linkType: hard
+
 "@elastic/elasticsearch@npm:8.15.0":
   version: 8.15.0
   resolution: "@elastic/elasticsearch@npm:8.15.0"
@@ -3729,16 +3736,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"drizzle-kit@npm:0.22.8":
-  version: 0.22.8
-  resolution: "drizzle-kit@npm:0.22.8"
+"drizzle-kit@npm:0.25.0":
+  version: 0.25.0
+  resolution: "drizzle-kit@npm:0.25.0"
   dependencies:
+    "@drizzle-team/brocli": "npm:^0.10.1"
     "@esbuild-kit/esm-loader": "npm:^2.5.5"
     esbuild: "npm:^0.19.7"
     esbuild-register: "npm:^3.5.0"
   bin:
     drizzle-kit: bin.cjs
-  checksum: 10c0/e3bbda283de8d3985644d771fe773fcee3f31dd485cb3d32af077c52a088580921fcaae3f7b383279f8799b223d74701ebc4866b6e4952c8c813cd0cb5f80908
+  checksum: 10c0/97bd2e2b3d30717ce99d274456b3eb998e83b34a529d2a5dbaee10658cf2d6154b16d872438d3e8f7fba45d203aeba6b12086a7aa39d6ba196110d1534de6944
   languageName: node
   linkType: hard
 
@@ -8376,7 +8384,7 @@ __metadata:
     commander: "npm:12.1.0"
     date-fns: "npm:^4.1.0"
     dotenv: "npm:16.4.5"
-    drizzle-kit: "npm:0.22.8"
+    drizzle-kit: "npm:0.25.0"
     drizzle-orm: "npm:0.33.0"
     env-var: "npm:7.5.0"
     eslint: "npm:8.57.1"
