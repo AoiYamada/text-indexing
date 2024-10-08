@@ -2220,12 +2220,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.5.5":
-  version: 22.5.5
-  resolution: "@types/node@npm:22.5.5"
+"@types/node@npm:22.7.5":
+  version: 22.7.5
+  resolution: "@types/node@npm:22.7.5"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10c0/ead9495cfc6b1da5e7025856dcce2591e9bae635357410c0d2dd619fce797d2a1d402887580ca4b336cb78168b195224869967de370a23f61663cf1e4836121c
+  checksum: 10c0/cf11f74f1a26053ec58066616e3a8685b6bcd7259bc569738b8f752009f9f0f7f85a1b2d24908e5b0f752482d1e8b6babdf1fbb25758711ec7bb9500bfcd6e60
   languageName: node
   linkType: hard
 
@@ -8361,7 +8361,7 @@ __metadata:
     "@types/benchmark": "npm:2.1.5"
     "@types/better-sqlite3": "npm:7.6.11"
     "@types/jest": "npm:29.5.12"
-    "@types/node": "npm:22.5.5"
+    "@types/node": "npm:22.7.5"
     "@types/qs": "npm:^6"
     "@types/react": "npm:18.3.8"
     "@types/react-dom": "npm:18.3.0"
