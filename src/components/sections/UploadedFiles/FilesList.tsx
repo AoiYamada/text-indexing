@@ -13,15 +13,25 @@ import {
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Trash2 } from "lucide-react";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 const FilesList: FC<FilesListProps> = ({ className, defaultFiles }) => {
-  const [
-    files,
-    // setFiles
-  ] = React.useState(defaultFiles.items);
-  // const [total, setTotal] = React.useState(defaultFiles.total);
-  // const [page, setPage] = React.useState(1);
+  const [files] = useState(defaultFiles.items);
+
+  const handleDelete = async (id: number) => {
+    const response = await fetch(`/api/files/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    } else {
+      // Handle error
+      console.error("Failed to delete file");
+    }
+  };
 
   return (
     <div
@@ -48,8 +58,10 @@ const FilesList: FC<FilesListProps> = ({ className, defaultFiles }) => {
                 {format(file.createdAt, "yyyy-MM-dd HH:mm")}
               </TableCell>
               <TableCell>
-                {/* TODO: delete function */}
-                <Button variant="destructive">
+                <Button
+                  variant="destructive"
+                  onClick={() => handleDelete(file.id)}
+                >
                   <Trash2 className="w-4" />
                 </Button>
               </TableCell>

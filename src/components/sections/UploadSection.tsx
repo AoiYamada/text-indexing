@@ -89,21 +89,35 @@ const UploadSection = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex w-full flex-row items-start justify-center gap-8"
       >
-        <Input
-          type="file"
-          multiple
-          {...register("files")}
-          className="w-[300px]"
-        />
-        <div className="flex flex-col justify-center gap-2">
-          <Button
-            type="submit"
-            className="btn btn-primary"
-            disabled={isLoading}
+        <div className="flex flex-col gap-4 align-en">
+          <select
+            id="source"
+            {...register("source")}
+            className="w-full p-2 border border-gray-300 rounded"
+            defaultValue=""
           >
-            {isLoading ? "Uploading..." : "Upload"}
-          </Button>
-          {isLoading && <Progress value={progress} className="w-28" />}
+            <option value="" disabled hidden>
+              Select Source
+            </option>
+            <option value="xcom">X.com</option>
+            <option value="pubmed">PubMed</option>
+          </select>
+          <Input
+            type="file"
+            multiple
+            {...register("files")}
+            className="w-[300px]"
+          />
+          <div className="flex flex-col justify-center gap-2">
+            <Button
+              type="submit"
+              className="btn btn-primary"
+              disabled={isLoading}
+            >
+              {isLoading ? "Uploading..." : "Upload"}
+            </Button>
+            {isLoading && <Progress value={progress} className="w-28" />}
+          </div>
         </div>
       </form>
     </section>
