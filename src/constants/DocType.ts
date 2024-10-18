@@ -1,6 +1,6 @@
 enum DocType {
   pubmed = "pubmed",
-  twitter = "twitter",
+  gdelt = "gdelt",
 }
 
 export default DocType;

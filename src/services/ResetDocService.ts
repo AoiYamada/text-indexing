@@ -14,7 +14,7 @@ class ResetDocService implements Service {
       schema.docMeta,
       schema.stemDocStats,
       schema.pubmed,
-      schema.twitter,
+      schema.gdelt,
       schema.doc,
       schema.file,
       schema.stem,

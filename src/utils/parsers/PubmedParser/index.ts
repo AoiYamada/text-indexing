@@ -18,6 +18,8 @@ class PubmedParser {
 
   public parse(xml: RawXML, count?: int): Pubmed[] {
     const data: PubmedRawData = this._parser.parse(xml);
+    // TODO: validation
+
     let i = 0;
     const articles: Pubmed[] = [];
     const rawArticles = Array.isArray(data.PubmedArticleSet.PubmedArticle)
