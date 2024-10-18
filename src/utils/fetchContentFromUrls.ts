@@ -24,7 +24,7 @@ async function fetchHtml(url: string): Promise<string | null> {
     return response.data;
   } catch (error) {
     const endTime = Date.now();
-    logger.error(`Error fetching URL ${url} after ${endTime - startTime}ms:`, error);
+    logger.error(`Error fetching URL ${url} after ${endTime - startTime}ms: ${error instanceof Error ? error.message : String(error)}`);
     return null;
   }
 }
@@ -32,6 +32,7 @@ async function fetchHtml(url: string): Promise<string | null> {
 async function extractContent(url: string): Promise<string | null> {
   const html = await fetchHtml(url);
   if (!html) return null;
+
   // 移除所有 <style> 標籤
   const cleanedHtml = html.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
 
@@ -49,7 +50,12 @@ async function extractContent(url: string): Promise<string | null> {
   return article ? article.textContent : null;
 }
 
-async function processBatch(batch: any[], writeStream: fs.WriteStream, isFirst: boolean) {
+interface BatchItem {
+  url: string;
+  title: string;
+}
+
+async function processBatch(batch: BatchItem[], writeStream: fs.WriteStream, isFirst: boolean) {
   const promises = batch.map(async (item, index) => {
     if (item.url) {
       let content = await extractContent(item.url);
