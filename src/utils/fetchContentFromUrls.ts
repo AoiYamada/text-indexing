@@ -14,11 +14,9 @@ async function fetchHtml(url: string): Promise<string | null> {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
         'Referer': 'https://www.google.com/',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
         'Connection': 'keep-alive'
       },
+      maxRedirects: 5,  // Limit the number of redirects to 5
       timeout: 10000 // 設置超時時間為 10 秒
     });
     const endTime = Date.now();
@@ -51,6 +49,28 @@ async function extractContent(url: string): Promise<string | null> {
   return article ? article.textContent : null;
 }
 
+async function processBatch(batch: any[], writeStream: fs.WriteStream, isFirst: boolean) {
+  const promises = batch.map(async (item, index) => {
+    if (item.url) {
+      let content = await extractContent(item.url);
+      // 移除所有換行符和制表符，並將多個空格轉換為單個空格
+      if (content) {
+        content = content.replace(/[\n\t]+/g, ' ').replace(/\s+/g, ' ');
+      }
+      const result = { url: item.url, title: item.title, content };
+
+      if (!isFirst || index > 0) {
+        writeStream.write(',');
+      }
+
+      writeStream.write(JSON.stringify(result, null, 2));
+      logger.info(`Extracted content from ${item.url}`);
+    }
+  });
+
+  await Promise.all(promises);
+}
+
 export async function fetchContentsFromUrls(inputFile: string, outputFile: string) {
   const data = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
 
@@ -60,25 +80,10 @@ export async function fetchContentsFromUrls(inputFile: string, outputFile: strin
   const writeStream = fs.createWriteStream(outputFile);
   writeStream.write('[');
 
-  let isFirst = true;
-  for (const item of data) {
-    if (item.url) {
-      let content = await extractContent(item.url);
-      // 移除所有換行符和制表符，並將多個空格轉換為單個空格
-      if (content) {
-        content = content.replace(/[\n\t]+/g, ' ').replace(/\s+/g, ' ');
-      }
-      const result = { url: item.url, title: item.title, content };
-
-      if (!isFirst) {
-        writeStream.write(',');
-      } else {
-        isFirst = false;
-      }
-
-      writeStream.write(JSON.stringify(result, null, 2));
-      logger.info(`Extracted content from ${item.url}`);
-    }
+  const batchSize = 5; // 每批次處理的數量
+  for (let i = 0; i < data.length; i += batchSize) {
+    const batch = data.slice(i, i + batchSize);
+    await processBatch(batch, writeStream, i === 0);
   }
 
   writeStream.write(']');
