@@ -16,8 +16,10 @@ async function fetchHtml(url: string): Promise<string | null> {
         'Referer': 'https://www.google.com/',
         'Connection': 'keep-alive'
       },
-      maxRedirects: 5,  // Limit the number of redirects to 5
-      timeout: 10000 // 設置超時時間為 10 秒
+      // Limit the number of redirects to 5
+      maxRedirects: 5,
+      timeout: 10000,
+      withCredentials: true
     });
     const endTime = Date.now();
     logger.info(`Finished fetch for URL: ${url} in ${endTime - startTime}ms`);
