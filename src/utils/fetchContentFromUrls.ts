@@ -1,5 +1,6 @@
 // src/utils/fetchContentFromUrls.ts
 import axios from 'axios';
+import UserAgent from 'user-agents';
 import { JSDOM } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 import fs from 'fs';
@@ -7,12 +8,13 @@ import logger from '../logger';
 
 async function fetchHtml(url: string): Promise<string | null> {
   logger.info(`Starting fetch for URL: ${url}`);
+  const userAgent: UserAgent = new UserAgent();
   const startTime = Date.now();
 
   try {
     const response = await axios.get(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
+        'User-Agent': userAgent.toString(),
         'Referer': 'https://www.google.com/',
         'Connection': 'keep-alive'
       },

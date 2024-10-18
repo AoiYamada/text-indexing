@@ -2301,6 +2301,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/user-agents@npm:^1":
+  version: 1.0.4
+  resolution: "@types/user-agents@npm:1.0.4"
+  checksum: 10c0/07f0ad3c4c742775ddcea6b6d7c06e7256318dd2ca7530785a61872964963bd918b61749c09183a20195d10bd7d8bd31fe031ca42e227e9cf25fd140b7ef525a
+  languageName: node
+  linkType: hard
+
 "@types/yargs-parser@npm:*":
   version: 21.0.3
   resolution: "@types/yargs-parser@npm:21.0.3"
@@ -6595,6 +6602,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.clonedeep@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "lodash.clonedeep@npm:4.5.0"
+  checksum: 10c0/2caf0e4808f319d761d2939ee0642fa6867a4bbf2cfce43276698828380756b99d4c4fa226d881655e6ac298dd453fe12a5ec8ba49861777759494c534936985
+  languageName: node
+  linkType: hard
+
 "lodash.memoize@npm:^4.1.2":
   version: 4.1.2
   resolution: "lodash.memoize@npm:4.1.2"
@@ -8594,6 +8608,7 @@ __metadata:
     "@types/qs": "npm:^6"
     "@types/react": "npm:18.3.8"
     "@types/react-dom": "npm:18.3.0"
+    "@types/user-agents": "npm:^1"
     "@visx/responsive": "npm:^3.10.2"
     "@visx/scale": "npm:^3.5.0"
     "@visx/text": "npm:^3.3.0"
@@ -8627,6 +8642,7 @@ __metadata:
     ts-jest: "npm:29.2.5"
     tsx: "npm:4.19.1"
     typescript: "npm:5.6.2"
+    user-agents: "npm:^1.1.331"
     winston: "npm:3.14.2"
     zod: "npm:^3.23.8"
   bin:
@@ -8988,6 +9004,15 @@ __metadata:
   dependencies:
     punycode: "npm:^2.1.0"
   checksum: 10c0/4ef57b45aa820d7ac6496e9208559986c665e49447cb072744c13b66925a362d96dd5a46c4530a6b8e203e5db5fe849369444440cb22ecfc26c679359e5dfa3c
+  languageName: node
+  linkType: hard
+
+"user-agents@npm:^1.1.331":
+  version: 1.1.331
+  resolution: "user-agents@npm:1.1.331"
+  dependencies:
+    lodash.clonedeep: "npm:^4.5.0"
+  checksum: 10c0/fd9cad12f60e530c8b2c46a21dd8f890d6219fe8b7e48f29167f80c31db55a355401e8ae6bdb077d3427d1f9a82f35f5fefb101d256d879ce51dabb1f359d41e
   languageName: node
   linkType: hard
 
