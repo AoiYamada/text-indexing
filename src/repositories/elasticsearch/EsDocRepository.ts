@@ -30,7 +30,12 @@ class EsDocRepository {
 
     await this.client.indices.create({
       index: this.index,
-      settings: docIndex,
+      settings: {
+        ...docIndex,
+        analyze: {
+          max_token_count: 50000, // 設置 max_token_count
+        },
+      },
       mappings: docMappings,
     });
 
@@ -48,7 +53,12 @@ class EsDocRepository {
 
     await this.client.indices.putSettings({
       index: this.index,
-      settings: omit(["number_of_shards", "number_of_replicas"], docIndex),
+      settings: {
+        ...omit(["number_of_shards", "number_of_replicas"], docIndex),
+        analyze: {
+          max_token_count: 50000, // 設置 max_token_count
+        },
+      },
     });
 
     await this.client.indices.putMapping({

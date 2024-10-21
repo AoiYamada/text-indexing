@@ -39,7 +39,7 @@ const SearchResponseParser = z.object({
   items: z.array(
     z.object({
       id: z.number(),
-      type: z.enum([DocType.pubmed, DocType.twitter]),
+      type: z.enum(Object.values(DocType) as [string, ...string[]]),
       filename: z.string(),
       sentences: z.array(z.string()),
     })

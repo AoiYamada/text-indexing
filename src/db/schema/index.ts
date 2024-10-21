@@ -4,7 +4,7 @@ import file from "./file";
 import pubmed from "./pubmed";
 import stem from "./stem";
 import stemDocStats from "./stem-doc-stats";
-import twitter from "./twitter";
+import gdelt from "./gdelt";
 
 // keep for reference, we use `references` over `relations` in drizzle-orm
 // ref: https://orm.drizzle.team/docs/rqb#foreign-keys
@@ -20,7 +20,7 @@ export {
   pubmed,
   stem,
   stemDocStats,
-  twitter,
+  gdelt,
   // relations
   // fileRelation,
   // docRelation,

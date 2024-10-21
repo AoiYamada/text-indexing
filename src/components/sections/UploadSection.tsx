@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Progress } from "../ui/progress";
+import DocType from "@/constants/DocType";
 
 const UploadSection = () => {
   const { register, reset, handleSubmit } = useForm();
@@ -18,6 +19,7 @@ const UploadSection = () => {
     // POST the files to /api/upload by using `fetch`
 
     const formData = new FormData();
+    formData.append("source", data.source);
     Array.from(data.files as File[]).forEach((file) => {
       formData.append("files", file);
     });
@@ -99,8 +101,13 @@ const UploadSection = () => {
             <option value="" disabled hidden>
               Select Source
             </option>
-            <option value="xcom">X.com</option>
-            <option value="pubmed">PubMed</option>
+            {
+              Object.values(DocType).map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))
+            }
           </select>
           <Input
             type="file"
