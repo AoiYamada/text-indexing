@@ -84,14 +84,14 @@ const UploadSection = () => {
       className="w-full flex flex-col items-center justify-center gap-12"
       id="contact-us"
     >
-      <h1 className="flex flex-col items-center justify-center text-xl font-semibold sm:flex-row sm:text-2xl lg:text-3xl">
+      <h1 className="flex flex-col items-center justify-center text-xl font-semibold sm:flex-row sm:text-2xl lg:text-3xl w-full">
         Upload test files
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex w-full flex-row items-start justify-center gap-8"
       >
-        <div className="flex flex-col gap-4 align-en">
+        <div className="flex flex-col gap-4 align-en w-full">
           <select
             id="source"
             {...register("source")}
@@ -113,7 +113,7 @@ const UploadSection = () => {
             type="file"
             multiple
             {...register("files")}
-            className="w-[300px]"
+            className="w-full"
           />
           <div className="flex flex-col justify-center gap-2">
             <Button
@@ -123,7 +123,7 @@ const UploadSection = () => {
             >
               {isLoading ? "Uploading..." : "Upload"}
             </Button>
-            {isLoading && <Progress value={progress} className="w-28" />}
+            {isLoading && <Progress value={progress} className="w-full" />}
           </div>
         </div>
       </form>

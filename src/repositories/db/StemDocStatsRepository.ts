@@ -8,6 +8,8 @@ import { DbClient } from "../../db";
 import { StemDocStatsTable } from "../../db/schema/stem-doc-stats";
 import { int } from "../../types/alias";
 import { StemTable } from "@/db/schema/stem";
+import DocType from "@/constants/DocType";
+import { DocAnalyzer } from "@/elasticsearch/indices/doc/analysis";
 
 class StemDocStatsRepository {
   constructor(
@@ -33,20 +35,25 @@ class StemDocStatsRepository {
     return this.db.select().from(this.table).where(filter);
   }
 
-  async getStats(limit: int, offset: int) {
+  async getStats(
+    limit: int,
+    offset: int,
+    filter?: {
+      docType?: DocType;
+      docAnalyzer?: DocAnalyzer;
+    }
+  ) {
     // SELECT stem.id, stats.doc_type, stem.term, SUM(stats.count) AS count
     // FROM stem_doc_stats stats
     // LEFT JOIN stem ON stem.id = stats.stem_id
     // GROUP BY stem_id
     // ORDER BY count DESC
     // LIMIT 10 OFFSET 0;
-    return this.db
+    const query = this.db
       .select({
         id: this.table.stemId,
         docType: this.table.docType,
         term: this.stemTable.term,
-        // `mapWith` is a workaround for a bug in drizzle-orm
-        // https://github.com/drizzle-team/drizzle-orm/issues/1146
         count: sum(this.table.count).mapWith(Number),
       })
       .from(this.table)
@@ -55,6 +62,20 @@ class StemDocStatsRepository {
       .orderBy(desc(sum(this.table.count)))
       .limit(limit)
       .offset(offset);
+
+    if (!filter) {
+      return query;
+    }
+
+    if (filter.docType) {
+      query.where(eq(this.table.docType, filter.docType));
+    }
+
+    if (filter.docAnalyzer) {
+      query.where(eq(this.table.docAnalyzer, filter.docAnalyzer));
+    }
+
+    return query;
   }
 
   async getById(id: int) {

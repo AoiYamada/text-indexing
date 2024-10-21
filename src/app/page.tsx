@@ -9,7 +9,7 @@ import ChartSection from "@/components/sections/ChartSection";
 export default function Home() {
   return (
     <MaxWidthWrapper className="flex flex-col xl:flex-row items-center xl:items-start justify-center gap-16">
-      <div className="flex flex-col items-center justify-start gap-12">
+      <div className="flex flex-col items-center justify-start gap-12 w-[400px] shrink-0">
         <UploadSection />
         <OverallStatsSection />
       </div>

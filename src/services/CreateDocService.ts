@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 
 import DocType from "../constants/DocType";
-import { DocAnalyzer } from "../elasticsearch/indices/doc/analysis";
+import { DocAnalyzerValues } from "../elasticsearch/indices/doc/analysis";
 import DocMetaRepository from "../repositories/db/DocMetaRepository";
 import DocRepository from "../repositories/db/DocRepository";
 import PubmedRepository from "../repositories/db/PubmedRepository";
@@ -136,27 +136,32 @@ class CreateDocService implements Service {
       count: number;
     }[] = [];
 
-    try {
-      stemStats = await this.esDocRepo.analyze(text, DocAnalyzer.Stop);
-    } catch (err) {
-      console.log(err, "analyze error");
-      throw err;
+    for (const analyzer of DocAnalyzerValues) {
+      try {
+        stemStats = await this.esDocRepo.analyze(text, analyzer);
+      } catch (err) {
+        console.log(err, "analyze error");
+        throw err;
+      }
+
+      logger.info(`Stem stats: ${stemStats.length}`);
+
+      await Promise.all(
+        stemStats.map(async (stat) => {
+          const stem = await this.stemRepo.upsert(stat.term);
+
+          await this.stemDocStatsRepo.create({
+            stemId: stem.id,
+            docId,
+            docType,
+            docAnalyzer: analyzer,
+            count: stat.count,
+          });
+        })
+      );
     }
 
-    logger.info(`Stem stats: ${stemStats.length}`);
 
-    await Promise.all(
-      stemStats.map(async (stat) => {
-        const stem = await this.stemRepo.upsert(stat.term);
-
-        await this.stemDocStatsRepo.create({
-          stemId: stem.id,
-          docId,
-          docType,
-          count: stat.count,
-        });
-      })
-    );
 
     logger.info(`Stem stats updated for docId: ${docId}`);
   }
