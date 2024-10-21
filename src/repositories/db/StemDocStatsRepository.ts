@@ -35,14 +35,7 @@ class StemDocStatsRepository {
     return this.db.select().from(this.table).where(filter);
   }
 
-  async getStats(
-    limit: int,
-    offset: int,
-    filter?: {
-      docType?: DocType;
-      docAnalyzer?: DocAnalyzer;
-    }
-  ) {
+  async getStats(limit: int, offset: int, filter?: StemDocStatsFilter) {
     // SELECT stem.id, stats.doc_type, stem.term, SUM(stats.count) AS count
     // FROM stem_doc_stats stats
     // LEFT JOIN stem ON stem.id = stats.stem_id
@@ -110,3 +103,7 @@ type Filter =
   | ((aliases: GetSelectTableSelection<StemDocStatsTable>) => SQL | undefined)
   | SQL
   | undefined;
+export type StemDocStatsFilter = {
+  docType?: DocType;
+  docAnalyzer?: DocAnalyzer;
+};

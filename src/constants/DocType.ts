@@ -5,4 +5,4 @@ enum DocType {
 
 export default DocType;
 
-export const DocTypeValues = Object.values(DocType) as [string, ...string[]];
+export const DocTypeValues = Object.values(DocType) as [DocType, ...DocType[]];
