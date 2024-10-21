@@ -48,7 +48,7 @@ async function main(query: string, startDate: string, endDate: string) {
     const data = await fetchGdeltData(query, format(current, 'yyyyMMddHHmmss'), format(next, 'yyyyMMddHHmmss'));
     totalArticles += data.articles.length;
     // 檢查 data 的原始類型
-    console.log("Data Type:", typeof data, ", Number of articles:", data.articles.length);
+    // console.log("Data Type:", typeof data, ", Number of articles:", data.articles.length);
     // console.log(data);
 
     if (data && Array.isArray(data.articles)) {
