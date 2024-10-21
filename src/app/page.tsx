@@ -3,8 +3,8 @@ import OverallStatsSection from "@/components/sections/OverallStatsSection";
 import SearchSection from "@/components/sections/SearchSection";
 import UploadedFiles from "@/components/sections/UploadedFiles";
 import UploadSection from "@/components/sections/UploadSection";
+import ChartSection from "@/components/sections/ChartSection";
 
-// import ChartSection from "@/components/sections/ChartSection";
 
 export default function Home() {
   return (
@@ -12,10 +12,10 @@ export default function Home() {
       <div className="flex flex-col items-center justify-start gap-12">
         <UploadSection />
         <OverallStatsSection />
-        {/* <ChartSection /> */}
       </div>
       <div className="flex flex-col items-center justify-start gap-12">
         <UploadedFiles className="w-full" />
+        <ChartSection />
         <SearchSection />
       </div>
     </MaxWidthWrapper>
