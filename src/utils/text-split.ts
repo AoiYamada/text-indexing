@@ -10,7 +10,8 @@ function textSplit(text: string): string[] {
       !inSentence &&
       trimmedText[i] !== " " &&
       trimmedText[i] !== "\t" &&
-      trimmedText[i] !== "\n"
+      trimmedText[i] !== "\n" &&
+      trimmedText[i] !== "\r"
     ) {
       inSentence = true;
       start = i;

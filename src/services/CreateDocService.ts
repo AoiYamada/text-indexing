@@ -80,6 +80,7 @@ class CreateDocService implements Service {
 
   private async createGdeltDoc(payload: CreateGdeltPayload) {
     const hashedContent = hash(payload.content);
+
     const isDuplicated = await this.isDuplicated(
       payload.content,
       hashedContent,
@@ -87,32 +88,62 @@ class CreateDocService implements Service {
     );
 
     if (isDuplicated) {
+      logger.info(`Doc with same content already exists, content[${payload.content.slice(0, 50)}...]`);
       return;
     }
+
+    logger.info(`Creating gdelt doc, hash: ${hashedContent}`);
 
     const { id: docId } = await this.docRepo.create({
       type: payload.type,
       fileId: payload.fileId,
     });
 
+    try {
+      logger.info(`Creating es doc for gdelt docId: ${docId}`);
+
+      await this.esDocRepo.create({
+        doc_id: docId,
+        doc_type: DocType.gdelt,
+        // short text can flush into es directly, for long text, use esDocRepo.update to append 1 sentence at a time
+        sentences: textSplit(payload.content),
+      })
+    } catch (err) {
+      console.log(err, "es create error");
+      throw err;
+    }
+
     await Promise.all([
       this.updateStemStats(docId, DocType.gdelt, payload.content),
+      this.gdeltRepo.create({
+        docId,
+        url: payload.url,
+        title: payload.title,
+        content: payload.content,
+      }),
       this.docMetaRepo.create({
         docId,
         hash: hashedContent,
         ...textStats(payload.content),
       }),
-      this.esDocRepo.create({
-        doc_id: docId,
-        doc_type: DocType.gdelt,
-        // short text can flush into es directly, for long text, use esDocRepo.update to append 1 sentence at a time
-        sentences: textSplit(payload.content),
-      }),
     ]);
   }
 
   private async updateStemStats(docId: int, docType: DocType, text: string) {
-    const stemStats = await this.esDocRepo.analyze(text, DocAnalyzer.Stop);
+    logger.info(`Updating stem stats for docId: ${docId}`);
+    let stemStats: {
+      term: string;
+      count: number;
+    }[] = [];
+
+    try {
+      stemStats = await this.esDocRepo.analyze(text, DocAnalyzer.Stop);
+    } catch (err) {
+      console.log(err, "analyze error");
+      throw err;
+    }
+
+    logger.info(`Stem stats: ${stemStats.length}`);
 
     await Promise.all(
       stemStats.map(async (stat) => {
@@ -126,6 +157,8 @@ class CreateDocService implements Service {
         });
       })
     );
+
+    logger.info(`Stem stats updated for docId: ${docId}`);
   }
 
   private async isDuplicated(

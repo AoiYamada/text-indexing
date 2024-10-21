@@ -95,9 +95,6 @@ export async function POST(request: NextRequest) {
     });
 
     for (const article of articles) {
-      // wait 1s to slow down the process
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
       createDocEmitter.emitCreateDocEvent({
         type: docType,
         fileId,

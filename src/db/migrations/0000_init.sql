@@ -25,6 +25,15 @@ CREATE TABLE `file` (
 	`timestamp` text DEFAULT (current_timestamp) NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE `gdelt` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`doc_id` integer NOT NULL,
+	`url` text NOT NULL,
+	`title` text NOT NULL,
+	`content` text NOT NULL,
+	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
 CREATE TABLE `pubmed` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`doc_id` integer NOT NULL,
@@ -48,13 +57,6 @@ CREATE TABLE `stem_doc_stats` (
 	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
-CREATE TABLE `twitter` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`doc_id` integer NOT NULL,
-	`content` text NOT NULL,
-	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE cascade
-);
---> statement-breakpoint
 CREATE INDEX `doc_file_id_idx` ON `doc` (`file_id`);--> statement-breakpoint
 CREATE INDEX `doc_type_idx` ON `doc` (`type`);--> statement-breakpoint
 CREATE UNIQUE INDEX `doc_meta_doc_id_idx` ON `doc_meta` (`doc_id`);--> statement-breakpoint
@@ -66,10 +68,10 @@ CREATE INDEX `doc_meta_sentence_count_idx` ON `doc_meta` (`sentence_count`);--> 
 CREATE INDEX `doc_meta_ascii_count_idx` ON `doc_meta` (`ascii_count`);--> statement-breakpoint
 CREATE INDEX `doc_meta_non_ascii_count_idx` ON `doc_meta` (`non_ascii_count`);--> statement-breakpoint
 CREATE INDEX `doc_meta_space_count_idx` ON `doc_meta` (`space_count`);--> statement-breakpoint
+CREATE UNIQUE INDEX `gdelt_doc_id_idx` ON `gdelt` (`doc_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `pubmed_doc_id_idx` ON `pubmed` (`doc_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `stem_term_idx` ON `stem` (`term`);--> statement-breakpoint
 CREATE INDEX `stem_doc_stats_doc_id_count_idx` ON `stem_doc_stats` (`doc_id`,`count`);--> statement-breakpoint
 CREATE INDEX `stem_doc_stats_stem_id_count_idx` ON `stem_doc_stats` (`stem_id`,`count`);--> statement-breakpoint
 CREATE INDEX `stem_doc_stats_doc_type_count_idx` ON `stem_doc_stats` (`doc_type`,`count`);--> statement-breakpoint
-CREATE INDEX `stem_doc_stats_count_idx` ON `stem_doc_stats` (`count`);--> statement-breakpoint
-CREATE UNIQUE INDEX `twitter_doc_id_idx` ON `twitter` (`doc_id`);
+CREATE INDEX `stem_doc_stats_count_idx` ON `stem_doc_stats` (`count`);
