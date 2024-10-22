@@ -52,6 +52,7 @@ CREATE TABLE `stem_doc_stats` (
 	`stem_id` integer NOT NULL,
 	`doc_id` integer NOT NULL,
 	`doc_type` text NOT NULL,
+	`doc_analyzer` text NOT NULL,
 	`count` integer NOT NULL,
 	FOREIGN KEY (`stem_id`) REFERENCES `stem`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`doc_id`) REFERENCES `doc`(`id`) ON UPDATE no action ON DELETE cascade
@@ -74,4 +75,6 @@ CREATE UNIQUE INDEX `stem_term_idx` ON `stem` (`term`);--> statement-breakpoint
 CREATE INDEX `stem_doc_stats_doc_id_count_idx` ON `stem_doc_stats` (`doc_id`,`count`);--> statement-breakpoint
 CREATE INDEX `stem_doc_stats_stem_id_count_idx` ON `stem_doc_stats` (`stem_id`,`count`);--> statement-breakpoint
 CREATE INDEX `stem_doc_stats_doc_type_count_idx` ON `stem_doc_stats` (`doc_type`,`count`);--> statement-breakpoint
+CREATE INDEX `stem_doc_stats_doc_analyzer_count_idx` ON `stem_doc_stats` (`doc_analyzer`,`count`);--> statement-breakpoint
+CREATE INDEX `stem_doc_stats_doc_type_analyzer_count_idx` ON `stem_doc_stats` (`doc_type`,`doc_analyzer`,`count`);--> statement-breakpoint
 CREATE INDEX `stem_doc_stats_count_idx` ON `stem_doc_stats` (`count`);

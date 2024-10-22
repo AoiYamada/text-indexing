@@ -12,9 +12,9 @@ const docMappings: MappingTypeMapping = {
       properties: {
         content: {
           type: "text",
-          analyzer: DocAnalyzer.Default,
-          search_analyzer: DocAnalyzer.Stop,
-          search_quote_analyzer: DocAnalyzer.Default,
+          analyzer: DocAnalyzer.Porter,
+          search_analyzer: DocAnalyzer.PorterStop,
+          search_quote_analyzer: DocAnalyzer.Porter,
         },
       },
     },

@@ -1,6 +1,7 @@
 import DocType from "@/constants/DocType";
 import {
   createDocEmitter,
+  createDocService,
   createDocWorker,
   createFileService,
 } from "@/container";
@@ -95,7 +96,7 @@ export async function POST(request: NextRequest) {
     });
 
     for (const article of articles) {
-      createDocEmitter.emitCreateDocEvent({
+      await createDocService.execute({
         type: docType,
         fileId,
         ...article,

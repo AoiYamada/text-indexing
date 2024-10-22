@@ -33,18 +33,21 @@ class WaitGroup extends EventEmitter {
     });
   }
 
-  until(n: int) {
+  addUntil(n: int) {
     return new Promise((resolve) => {
-      if (this.count <= n) {
+      if (this.count <= n - 1) {
+        this.add();
         resolve(null);
       }
 
       const interval = setInterval(() => {
-        if (this.count <= n) {
+        logger.info(`Waiting for count: ${this.count}`);
+        if (this.count <= n - 1) {
           clearInterval(interval);
+          this.add();
           resolve(null);
         }
-      }, 500 + Math.random() * 1000);
+      }, 500);
     });
   }
 
