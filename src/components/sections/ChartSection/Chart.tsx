@@ -21,7 +21,7 @@ const Chart: FC<ChartProps> = ({ isPorter, isStopWords, data }) => {
   const margin = { top: 20, right: 30, bottom: 70, left: 60 };
 
   // 只取前 30 筆資料進行顯示
-  const displayedData = data.slice(0, 30);
+  const displayedData = data.slice(0, 36);
 
   // 定義 x 和 y 軸的比例尺
   const xScale = scaleBand<string>({
@@ -55,7 +55,7 @@ const Chart: FC<ChartProps> = ({ isPorter, isStopWords, data }) => {
             scale={xScale}
             tickValues={displayedData.map((d) => d.label)}
             tickLabelProps={() => ({
-              angle: -60, // 將標籤旋轉
+              angle: -75, // 將標籤旋轉
               textAnchor: "end",
               fontSize: 14, // 調整字體大小
             })}
