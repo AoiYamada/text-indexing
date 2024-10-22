@@ -31,7 +31,7 @@ const ChartSection = () => {
       // fetch data here
       // on success, update the chart data
       const analyzer = switchDocAnalyzerMap[String(isPorter)][String(isStopWords)];
-      fetch(`/api/stats?filter[docAnalyzer]=${analyzer}`)
+      fetch(`/api/stats?filter[docAnalyzer]=${analyzer}&limit=150`)
         .then((resp) => resp.json())
         .then((data: GetStatsResponse) => {
           setChartData(data.map((item) => ({
