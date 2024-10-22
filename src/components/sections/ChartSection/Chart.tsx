@@ -31,7 +31,11 @@ const Chart: FC<ChartProps> = ({ isPorter, isStopWords, data }) => {
   });
 
   const yScale = scaleLog<number>({
-    domain: [1, Math.max(...displayedData.map((d) => d.value))], // domain 不能有 0 或負值
+    // domain 不能有 0 或負值
+    domain: [
+      Math.min(...displayedData.map((d) => d.value)) || 1, // 確保最小值不為 0
+      Math.max(...displayedData.map((d) => d.value)) || 1, // 確保最大值不為 0
+    ],
     range: [height - margin.bottom, margin.top],
     base: 10,
     nice: true,
