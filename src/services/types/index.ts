@@ -16,8 +16,10 @@ export type Meta = {
   sentenceCount: int;
 };
 
-export type Twitter = {
+export type Gdelt = {
   id: int;
+  url: string;
+  title: string;
   content: string;
 };
 

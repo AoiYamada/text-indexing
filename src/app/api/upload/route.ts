@@ -1,9 +1,12 @@
 import DocType from "@/constants/DocType";
 import {
   createDocEmitter,
+  createDocService,
   createDocWorker,
   createFileService,
 } from "@/container";
+import { CreateDocPayload } from "@/services/CreateDocService";
+import GdeltParser from "@/utils/parsers/GdeltParser";
 import PubmedParser from "@/utils/parsers/PubmedParser";
 // import { writeFileSync } from "fs";
 import { NextRequest, NextResponse } from "next/server";
@@ -11,6 +14,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   const data = await request.formData();
   const files = data.getAll("files");
+  const docType = data.get("source") as DocType;
 
   // For production, you should validate the files
   // 1. Check the filename, which should be a string satisfying /^[a-zA-Z0-9-_]+\.(xml|json)$/ to prevent path traversal
@@ -63,6 +67,12 @@ export async function POST(request: NextRequest) {
     }
   }
 
+  const parser = new {
+    [DocType.pubmed]: PubmedParser,
+    [DocType.gdelt]: GdeltParser,
+    // Add more parsers heres
+  }[docType]();
+
   for (const file of files) {
     if (typeof file === "string") continue;
 
@@ -73,8 +83,9 @@ export async function POST(request: NextRequest) {
     // just for testing, write the file to disk for inspection
     // writeFileSync(`data-source/${file.name}`, fileBuffer);
 
-    // parse xml
-    const articles = new PubmedParser().parse(fileBuffer);
+    // TODO: validate DocType
+
+    const articles = parser.parse(fileBuffer);
 
     if (!articles) {
       continue;
@@ -85,12 +96,11 @@ export async function POST(request: NextRequest) {
     });
 
     for (const article of articles) {
-      createDocEmitter.emitCreateDocEvent({
-        type: DocType.pubmed,
+      await createDocService.execute({
+        type: docType,
         fileId,
-        title: article.title,
-        abstract: article.abstract,
-      });
+        ...article,
+      } as CreateDocPayload);
     }
   }
 

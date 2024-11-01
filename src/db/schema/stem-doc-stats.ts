@@ -3,6 +3,7 @@ import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import doc from "./doc";
 import stem from "./stem";
 import { DocTypeValues } from "../../constants/DocType";
+import {  DocAnalyzerValues } from "@/elasticsearch/indices/doc/analysis";
 
 const stemDocStats = sqliteTable(
   "stem_doc_stats",
@@ -17,6 +18,9 @@ const stemDocStats = sqliteTable(
     docType: text("doc_type", {
       enum: DocTypeValues,
     }).notNull(),
+    docAnalyzer: text("doc_analyzer", {
+      enum: DocAnalyzerValues,
+    }).notNull(),
     count: integer("count").notNull(),
   },
   (table) => ({
@@ -28,10 +32,17 @@ const stemDocStats = sqliteTable(
       table.stemId,
       table.count
     ),
-    docTypeIdx: index("stem_doc_stats_doc_type_count_idx").on(
+    docTypeCountIdx: index("stem_doc_stats_doc_type_count_idx").on(
       table.docType,
       table.count
     ),
+    docAnalyzerCountIdx: index("stem_doc_stats_doc_analyzer_count_idx").on(
+      table.docAnalyzer,
+      table.count
+    ),
+    docTypeAnalyzerCountIdx: index(
+      "stem_doc_stats_doc_type_analyzer_count_idx"
+    ).on(table.docType, table.docAnalyzer, table.count),
     countIdx: index("stem_doc_stats_count_idx").on(table.count),
   })
 );

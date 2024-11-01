@@ -1,14 +1,16 @@
 import { IndicesIndexSettingsAnalysis } from "@elastic/elasticsearch/lib/api/types";
 
 export enum DocAnalyzer {
+  Raw = "raw_analyzer",
+  Porter = "porter_analyzer",
   Stop = "stop_analyzer",
-  Default = "default_analyzer",
+  PorterStop = "porter_stop_analyzer",
 }
 
 export enum DocFilter {
   Lowercase = "lowercase",
   Stop = "stop",
-  Snowball = "snowball",
+  Porter = "porter_stem",
 }
 
 export enum DocNormalizer {
@@ -17,15 +19,25 @@ export enum DocNormalizer {
 
 const docAnalysis: IndicesIndexSettingsAnalysis = {
   analyzer: {
+    [DocAnalyzer.Raw]: {
+      type: "custom",
+      tokenizer: "standard",
+      filter: [DocFilter.Lowercase],
+    },
+    [DocAnalyzer.Porter]: {
+      type: "custom",
+      tokenizer: "standard",
+      filter: [DocFilter.Lowercase, DocFilter.Porter],
+    },
     [DocAnalyzer.Stop]: {
       type: "custom",
       tokenizer: "standard",
-      filter: [DocFilter.Lowercase, DocFilter.Snowball, DocFilter.Stop],
+      filter: [DocFilter.Lowercase, DocFilter.Stop],
     },
-    [DocAnalyzer.Default]: {
+    [DocAnalyzer.PorterStop]: {
       type: "custom",
       tokenizer: "standard",
-      filter: [DocFilter.Lowercase, DocFilter.Snowball],
+      filter: [DocFilter.Lowercase, DocFilter.Porter, DocFilter.Stop],
     },
   },
   normalizer: {
@@ -38,11 +50,12 @@ const docAnalysis: IndicesIndexSettingsAnalysis = {
       type: "stop",
       stopwords: "_english_",
     },
-    [DocFilter.Snowball]: {
-      type: "snowball",
-      language: "English",
-    },
   },
 };
 
 export default docAnalysis;
+
+export const DocAnalyzerValues = Object.values(DocAnalyzer) as [
+  DocAnalyzer,
+  ...DocAnalyzer[]
+];

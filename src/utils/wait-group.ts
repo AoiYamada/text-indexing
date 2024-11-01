@@ -1,5 +1,6 @@
 import EventEmitter from "events";
 import logger from "../logger";
+import { int } from "@/types/alias";
 
 class WaitGroup extends EventEmitter {
   private count: number;
@@ -30,6 +31,28 @@ class WaitGroup extends EventEmitter {
     return new Promise((resolve) => {
       this.once("done", resolve);
     });
+  }
+
+  addUntil(n: int) {
+    return new Promise((resolve) => {
+      if (this.count <= n - 1) {
+        this.add();
+        resolve(null);
+      }
+
+      const interval = setInterval(() => {
+        logger.info(`Waiting for count: ${this.count}`);
+        if (this.count <= n - 1) {
+          clearInterval(interval);
+          this.add();
+          resolve(null);
+        }
+      }, 500);
+    });
+  }
+
+  current() {
+    return this.count;
   }
 }
 

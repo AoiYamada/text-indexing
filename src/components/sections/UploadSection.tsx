@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Progress } from "../ui/progress";
+import DocType from "@/constants/DocType";
 
 const UploadSection = () => {
   const { register, reset, handleSubmit } = useForm();
@@ -18,6 +19,7 @@ const UploadSection = () => {
     // POST the files to /api/upload by using `fetch`
 
     const formData = new FormData();
+    formData.append("source", data.source);
     Array.from(data.files as File[]).forEach((file) => {
       formData.append("files", file);
     });
@@ -82,28 +84,47 @@ const UploadSection = () => {
       className="w-full flex flex-col items-center justify-center gap-12"
       id="contact-us"
     >
-      <h1 className="flex flex-col items-center justify-center text-xl font-semibold sm:flex-row sm:text-2xl lg:text-3xl">
+      <h1 className="flex flex-col items-center justify-center text-xl font-semibold sm:flex-row sm:text-2xl lg:text-3xl w-full">
         Upload test files
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex w-full flex-row items-start justify-center gap-8"
       >
-        <Input
-          type="file"
-          multiple
-          {...register("files")}
-          className="w-[300px]"
-        />
-        <div className="flex flex-col justify-center gap-2">
-          <Button
-            type="submit"
-            className="btn btn-primary"
-            disabled={isLoading}
+        <div className="flex flex-col gap-4 align-en w-full">
+          <select
+            id="source"
+            {...register("source")}
+            className="w-full p-2 border border-gray-300 rounded"
+            defaultValue=""
           >
-            {isLoading ? "Uploading..." : "Upload"}
-          </Button>
-          {isLoading && <Progress value={progress} className="w-28" />}
+            <option value="" disabled hidden>
+              Select Source
+            </option>
+            {
+              Object.values(DocType).map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))
+            }
+          </select>
+          <Input
+            type="file"
+            multiple
+            {...register("files")}
+            className="w-full"
+          />
+          <div className="flex flex-col justify-center gap-2">
+            <Button
+              type="submit"
+              className="btn btn-primary"
+              disabled={isLoading}
+            >
+              {isLoading ? "Uploading..." : "Upload"}
+            </Button>
+            {isLoading && <Progress value={progress} className="w-full" />}
+          </div>
         </div>
       </form>
     </section>

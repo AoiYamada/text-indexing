@@ -80,12 +80,12 @@ const SearchBar = ({
   }, [defaultValue]);
 
   return (
-    <div className="relative flex flex-row justify-start align-middle">
+    <div className="relative flex flex-row justify-start align-middle w-full">
       <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
       <Input
         type="search"
         placeholder={placeholder || "Search"}
-        className={cn("bg-white pl-8", {
+        className={cn("bg-white pl-8 w-full", {
           "pr-[4.5rem]": tooltip,
           "pr-12": !tooltip,
         })}

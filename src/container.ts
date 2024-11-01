@@ -9,7 +9,7 @@ import DocRepository from "./repositories/db/DocRepository";
 import PubmedRepository from "./repositories/db/PubmedRepository";
 import StemDocStatsRepository from "./repositories/db/StemDocStatsRepository";
 import StemRepository from "./repositories/db/StemRepository";
-import TwitterRepository from "./repositories/db/TwitterRepository";
+import GdeltRepository from "./repositories/db/GdeltRepository";
 import EsDocRepository from "./repositories/elasticsearch/EsDocRepository";
 import CreateDocService from "./services/CreateDocService";
 import EnsureEsDocIndxService from "./services/EnsureEsDocIndxService";
@@ -37,7 +37,7 @@ export const stemDocStatsRepo = new StemDocStatsRepository(
   schema.stem
 );
 export const pubmedRepo = new PubmedRepository(db, schema.pubmed);
-export const twitterRepo = new TwitterRepository(db, schema.twitter);
+export const gdeltRepo = new GdeltRepository(db, schema.gdelt);
 
 // Services
 export const ensureEsDocIndxService = new EnsureEsDocIndxService(esDocRepo);
@@ -46,6 +46,7 @@ export const createDocService = new CreateDocService(
   docRepo,
   docMetaRepo,
   pubmedRepo,
+  gdeltRepo,
   stemRepo,
   stemDocStatsRepo,
   esDocRepo
