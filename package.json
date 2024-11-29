@@ -46,7 +46,7 @@
     "env-var": "7.5.0",
     "fast-xml-parser": "4.5.0",
     "jsdom": "^25.0.1",
-    "lucide-react": "0.445.0",
+    "lucide-react": "0.454.0",
     "next": "14.2.13",
     "qs": "^6.13.0",
     "react": "18.3.1",
