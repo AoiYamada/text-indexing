@@ -69,9 +69,7 @@ async function processBatch(batch: BatchItem[], writeStream: fs.WriteStream, isF
       }
       const result = { url: item.url, title: item.title, content };
 
-      if (!isFirst || index > 0) {
-        writeStream.write(',');
-      }
+      writeStream.write(',');
 
       writeStream.write(JSON.stringify(result, null, 2));
       logger.info(`Extracted content from ${item.url}`);
@@ -98,5 +96,18 @@ export async function fetchContentsFromUrls(inputFile: string, outputFile: strin
 
   writeStream.write(']');
   writeStream.end();
-  logger.info(`Data saved to ${outputFile}`);
+  // 等待寫入完成
+  writeStream.on('finish', () => {
+    // 讀取檔案的第一行
+    const fd = fs.openSync(outputFile, 'r+');
+    const buffer = Buffer.alloc(1024);
+    fs.readSync(fd, buffer, 0, buffer.length, 0);
+    let fileContent = buffer.toString('utf-8');
+    // 刪除第一個多餘的逗號
+    fileContent = fileContent.replace('[,', '[');
+    // 寫回檔案的第一行
+    fs.writeSync(fd, fileContent, 0, 'utf-8');
+    fs.closeSync(fd);
+    logger.info(`Data saved to ${outputFile}`);
+  });
 }

@@ -62,14 +62,21 @@ async function main(
         format(current, "yyyyMMddHHmmss"),
         format(next, "yyyyMMddHHmmss")
       );
-      totalArticles += data.articles.length;
-      // 檢查 data 的原始類型
-      console.log(
-        "Data Type:",
-        typeof data,
-        ", Number of articles:",
-        data.articles.length
-      );
+      if (data && data.articles) {
+        totalArticles += data.articles.length;
+        // 檢查 data 的原始類型
+        console.log(
+          "Data Type:",
+          typeof data,
+          ", Number of articles:",
+          data.articles.length
+        );
+      } else {
+        console.error("Data or articles is undefined");
+        console.log(data);
+        current = next;
+        continue; // 跳過當前迴圈迭代
+      }
       // console.log(data);
 
       if (data && Array.isArray(data.articles)) {
